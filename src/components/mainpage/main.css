@@ -1,0 +1,24 @@
+#Header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 10px;
+    height: 75px;
+    width: 100%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.822)
+}
+
+.nav-contain {
+    
+    display: flex;
+    justify-content: center;
+    border: 1px solid red;
+    height: 50px;
+    width: 300px;
+    align-items: center;
+}
+.nav-items {
+    /* align-self: flex-end; */
+    padding: 0 10px;
+}
