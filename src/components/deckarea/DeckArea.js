@@ -16,8 +16,9 @@ class DeckArea extends Component {
         let mappedDecks = this.props.deckProps.map((deck, i) => {
             return (
                 <Deck key={i}
+                    // count={}
                     title={deck.name}
-
+                    description={deck.description}
                 />
             )
         })

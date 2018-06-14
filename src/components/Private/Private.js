@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getUser } from './../../ducks/user'
+import { getUser, getDecks } from './../../ducks/user'
 
 
 class Private extends Component {
@@ -44,10 +44,11 @@ class Private extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
+        decks: state.decks
     }
 }
 
 
 // We can connect any action creators to this. See getUser
 // getUser will now be available on props
-export default connect(mapStateToProps, { getUser })(Private)
+export default connect(mapStateToProps, { getUser, getDecks })(Private)

@@ -14,7 +14,7 @@ const GET_DECK_DATA = 'GET_DECK_DATA'
 // This is an action creator
 export function getUser() {
     let userData = axios.get('/auth/user').then(res => res.data)
-    // console.log('userData ', userData)
+
     return {
         type: GET_USER_DATA,
         payload: userData
@@ -23,7 +23,11 @@ export function getUser() {
 
 export function getDecks(user_id) {
     let deckData = axios.get(`/decks/user/${user_id}`).then(res => res.data)
-    // this.setState({ decks: res.data })
+    // .then(() => {
+    //     let deckCardCnt = ""
+    // })
+
+
     return {
         type: GET_DECK_DATA,
         payload: deckData
