@@ -43,7 +43,7 @@ class Private extends Component {
 // Now I have access this.props.user this is what is in user.js state.
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
     }
 }
 

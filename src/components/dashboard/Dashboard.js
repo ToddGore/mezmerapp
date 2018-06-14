@@ -1,26 +1,34 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getUser } from './../../ducks/user'
+import { getUser, getDecks } from './../../ducks/user'
 import './dashboard.css';
-import CardArea from '../cardarea/CardArea'
-
+import DeckArea from '../deckarea/DeckArea'
+import axios from 'axios';
 
 
 
 class Dashboard extends Component {
+
+    constructor(props) {
+        super(props);
+        // this.state = {
+        // }
+    }
+
     componentDidMount() {
-        this.props.getUser();
+        this.props.getUser()
+            .then(() => {
+                this.props.getDecks(this.props.user.id)
+            });
+
+
     }
 
     render() {
-        let tempInfo = {
-            user_name: 'Kitty',
-            picture: 'http://placekitten.com/200/200',
-            auth_id: 'hjdhj4jhdj'
-        }
 
-        // let { user_name, picture, auth_id } = this.props.user;
-        let { user_name, picture, auth_id } = tempInfo;
+
+        let { user_name, picture, auth_id } = this.props.user;
+        console.log('decks dash ', this.props.decks)
 
         return (
             <div>
@@ -47,7 +55,7 @@ class Dashboard extends Component {
 
                         </div>
                         <div className="deck-view">
-                            <CardArea />
+                            <DeckArea deckProps={this.props.decks} />
                         </div>
                         <footer>
                             Footer
@@ -65,16 +73,19 @@ class Dashboard extends Component {
     }
 }
 
+
+
 // This is Redux store state
 // We are mapping redux store state to this components Props object
 // Now I have access this.props.user this is what is in user.js state.
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
+        decks: state.decks
     }
 }
 
 
 // We can connect any action creators to this. See getUser
 // getUser will now be available on props
-export default connect(mapStateToProps, { getUser })(Dashboard)
+export default connect(mapStateToProps, { getUser, getDecks })(Dashboard)

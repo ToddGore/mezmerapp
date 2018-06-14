@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
-import './card.css';
+import './deck.css';
 
 
-class Card extends Component {
+class Deck extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            deckTitle: '',
-            deckDesc: '',
+        // this.state = {
+        //     deckTitle: '',
+        //     deckDesc: '',
 
-        };
+        // };
     }
     render() {
         return (
             <div className="card-main">
                 <div className="card-count">12</div>
-                <div className="card-title"><p>JavaScript Objects</p></div>
+                <div className="card-title"><p>{this.props.title}</p></div>
                 <div className="card-desc"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore nostrum totam natus quas officiis corporis expedita placeat ab libero numquam. Vero facilis ratione obcaecati quis expedita magni reiciendis, labore alias.</p></div>
                 <button className="card-btn-play">Play</button>
                 <button className="card-btn-edit">Edit</button>
@@ -25,4 +25,4 @@ class Card extends Component {
     }
 }
 
-export default Card;
+export default Deck;

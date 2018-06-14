@@ -14,9 +14,9 @@ class App extends Component {
       <div className="App">
         <HashRouter>
           <Switch>
-            <Dashboard />
-            {/* <Route path='/' component={Main} exact /> */}
-            {/* <Route path='/private' component={Dashboard} /> */}
+            {/* <Dashboard /> */}
+            <Route path='/' component={Main} exact />
+            <Route path='/private' component={Dashboard} />
 
             {/* <Route path='/' component={Signup} exact /> */}
           </Switch>

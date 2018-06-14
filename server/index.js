@@ -1,8 +1,10 @@
 require('dotenv').config();
 const express = require('express')
     , session = require('express-session')
+    , bodyParser = require('body-parser')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
+    // , cors = require('cors')
     , massive = require('massive');
 
 
@@ -19,6 +21,10 @@ const {
 } = process.env;
 
 const app = express();
+
+app.use(bodyParser.json());
+// app.use(cors());
+
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
@@ -89,6 +95,20 @@ app.get('/auth/user', (req, res) => {
         res.status(401).send('Nice Try')
     }
 })
+
+// Retrieve Decks by user_id
+app.get('/decks/user/:id', (req, res) => {
+    const db = req.app.get('db');
+    const { params } = req;
+    db.getDecksByUser([params.id])
+        .then(decks => res.status(200).send(decks))
+        .catch(() => res.status(500).send());
+})
+
+
+
+
+
 
 
 app.listen(SERVER_PORT, () => {
