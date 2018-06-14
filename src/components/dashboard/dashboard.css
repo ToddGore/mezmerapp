@@ -16,11 +16,21 @@
 
 #sidebar {
     grid-area: sidebar;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 6fr 1fr;
+    grid-template-areas: 
+    "image"
+    "username"
+    "body"
+    "logout";
+
     height: 100vh;
     background-color: aqua;
     border-right: 1px solid blue;
 }
 .sidebar-image{
+    grid-area: image;
     height: 150px;
     width: 150px;
     border: 1px solid blue;
@@ -33,7 +43,16 @@
     border: 1px solid blue;
     border-radius: 50%;
 }
+.user-name {
+    grid-area: username;
+}
+
+.sidebar-body {
+    grid-area: body;
+}
 .logout-container {
+    grid-area: logout;
+    border: 1px solid blue;
     margin-top: auto;
     margin-bottom: 50px;
 }

@@ -1,12 +1,14 @@
 
 
 .card-main {
+    padding: 5px 5px;
     display: grid;
     grid-gap: 2px;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 3fr 4fr 2fr;
+    grid-template-rows: 1fr 2fr 4fr 2fr;
     grid-template-areas: 
-    "title title count"
+    "count count count"
+    "title title title"
     "desc desc desc"
     "play edit delete";
 
@@ -17,30 +19,44 @@
     width: 300px;
 }
 
-.card-title {
-    outline: 1px solid lightseagreen; 
-    grid-area: title;
-}
 .card-count {
-    outline: 1px solid lightseagreen; 
+    padding: 2px 5px;
+    text-align: right;
+    /* outline: 1px solid lightseagreen;  */
     grid-area: count;
 }
-.card-desc {
-    outline: 1px solid lightseagreen; 
-    grid-area: desc;  
+.card-title {
+    font-weight: bold;
+    font-size: large;
+    padding: 2px 5px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* outline: 1px solid lightseagreen;  */
+    grid-area: title;
 }
+.card-desc {
+    padding: 2px 5px;
+    /* outline: 1px solid lightseagreen;  */
+    grid-area: desc;  
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
 .card-btn-play {
-    margin: 5px 10px ;
-    outline: 1px solid lightseagreen; 
+    margin: 5px 5px ;
+    /* outline: 1px solid lightseagreen;  */
     grid-area: play;
 }
 .card-btn-edit {
     margin: 5px 10px ;
-    outline: 1px solid lightseagreen; 
+    /* outline: 1px solid lightseagreen;  */
     grid-area: edit;
 }
 .card-btn-delete {
-    margin: 5px 10px ;
-    outline: 1px solid lightseagreen; 
+    margin: 5px 5px ;
+    /* outline: 1px solid lightseagreen;  */
     grid-area: delete;
 }

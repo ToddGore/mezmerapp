@@ -17,6 +17,9 @@ export function getUser() {
     }
 }
 
+
+
+
 // This is an action creator
 export default function reducer(state = initialState, action) {
     switch (action.type) {

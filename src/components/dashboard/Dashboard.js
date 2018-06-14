@@ -31,8 +31,11 @@ class Dashboard extends Component {
                             <div className="sidebar-image">
                                 <img className="image-circle" src={picture} alt="user image" />
                             </div>
-                            <div className="userName">
+                            <div className="user-name">
                                 {user_name}
+                            </div>
+                            <div className="sidebar-body">
+
                             </div>
                             <div className="logout-container">
                                 <a href="http://localhost:3047/auth/logout">
