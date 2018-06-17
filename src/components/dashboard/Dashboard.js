@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getUser, getDecks } from './../../ducks/user'
-import './dashboard.css';
-import DeckArea from '../deckarea/DeckArea'
 import { Switch, Route } from 'react-router-dom'
-import Main from '../mainpage/Main'
-import DashHeader from '../dashheader/DashHeader'
+import './dashboard.css';
+// import Main from '../mainpage/Main'
+
+
 import DashNav from '../dashnav/DashNav'
+import DashHeader from '../dashheader/DashHeader'
 import DashFooter from '../dashfooter/DashFooter'
+
+import DeckArea from '../deckarea/DeckArea'
+
+
+
 
 
 class Dashboard extends Component {
