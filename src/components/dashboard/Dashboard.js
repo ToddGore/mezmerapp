@@ -3,15 +3,16 @@ import { connect } from 'react-redux'
 import { getUser, getDecks } from './../../ducks/user'
 import './dashboard.css';
 import DeckArea from '../deckarea/DeckArea'
-import axios from 'axios';
-
+import { Switch, Route } from 'react-router-dom'
+import Main from '../mainpage/Main'
+import DashHeader from '../dashheader/DashHeader'
+import DashNav from '../dashnav/DashNav'
+import DashFooter from '../dashfooter/DashFooter'
 
 
 class Dashboard extends Component {
-
     constructor(props) {
         super(props);
-
     }
 
     componentDidMount() {
@@ -19,53 +20,31 @@ class Dashboard extends Component {
             .then(() => {
                 this.props.getDecks(this.props.user.id)
             });
-
-
     }
 
     render() {
 
-
-        let { user_name, picture, auth_id } = this.props.user;
-        console.log('decks dash ', this.props.decks)
+        let { user_name, picture } = this.props.user;
+        console.log('decks dash ', this.props)
 
         return (
             <div>
 
-                {user_name ? (
-                    <div className="grid">
-                        <div id="sidebar">
-                            <div className="sidebar-image">
-                                <img className="image-circle" src={picture} alt="user image" />
-                            </div>
-                            <div className="user-name">
-                                {user_name}
-                            </div>
-                            <div className="sidebar-body">
-
-                            </div>
-                            <div className="logout-container">
-                                <a href="http://localhost:3047/auth/logout">
-                                    <button type="" className="logout-button">Log Out</button></a>
-                            </div>
-
-                        </div>
-                        <div className="deck-header">
-
-                        </div>
-                        <div className="deck-view">
-                            <DeckArea deckProps={this.props.decks} />
-                        </div>
-                        <footer>
-                            Footer
-                        </footer>
+                <div className="grid">
+                    <DashNav picture={picture} username={user_name} />
+                    <DashHeader />
+                    <div className="deck-view">
+                        <Switch>
+                            <Route path='/' component={Main} exact />
+                            <Route path='/private' component={DeckArea} />
+                        </Switch>
                     </div>
+                    <DashFooter />
+                </div>
 
 
-                ) : (
-                        // Failure
-                        <a href="http://localhost:3047/auth/logout">Failure - Please login Again</a>
-                    )}
+                {/* <a href="http://localhost:3047/auth/logout">Failure - Please login Again</a> */}
+
 
             </div>
         )

@@ -13,65 +13,8 @@
     "sidebar ft ft ft"
   }
 
-
-#sidebar {
-    grid-area: sidebar;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 6fr 1fr;
-    grid-template-areas: 
-    "image"
-    "username"
-    "body"
-    "logout";
-
-    height: 100vh;
-    background-color: aqua;
-    border-right: 1px solid blue;
-}
-.sidebar-image{
-    grid-area: image;
-    height: 150px;
-    width: 150px;
-    border: 1px solid blue;
-    border-radius: 50%;
-    margin: 20px 10px;
-}
-.image-circle {
-    height: 150px;
-    width: 150px;
-    border: 1px solid blue;
-    border-radius: 50%;
-}
-.user-name {
-    grid-area: username;
-}
-
-.sidebar-body {
-    grid-area: body;
-}
-.logout-container {
-    grid-area: logout;
-    /* border: 1px solid blue; */
-    margin-top: auto;
-    margin-bottom: 50px;
-}
-.logout-button {
-    height: 50px;
-    width: 80px;
-}
-
-.deck-header {
-    border: 1px solid green;
-    grid-area: hd;
-}
-
 .deck-view{
     grid-area: main;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    background-color: antiquewhite;
 }
-
-footer {
-    outline: 1px solid blue; 
-    grid-area: ft;
-  }

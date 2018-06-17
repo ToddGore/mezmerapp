@@ -1,6 +1,7 @@
 
 
 .card-main {
+    background-color: white;
     padding: 5px 5px;
     display: grid;
     grid-gap: 2px;
@@ -45,18 +46,24 @@
 }
 
 
-.card-btn-play {
-    margin: 5px 5px ;
+.card-btn {
+    margin: 5px 10px ;
+}
+
+.card-btn:hover {
+background-color: lightblue;
+}
+
+
+.play {
     /* outline: 1px solid lightseagreen;  */
     grid-area: play;
 }
-.card-btn-edit {
-    margin: 5px 10px ;
+.edit {
     /* outline: 1px solid lightseagreen;  */
     grid-area: edit;
 }
-.card-btn-delete {
-    margin: 5px 5px ;
+.delete {
     /* outline: 1px solid lightseagreen;  */
     grid-area: delete;
 }

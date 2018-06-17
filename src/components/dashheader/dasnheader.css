@@ -1,0 +1,4 @@
+.deck-header {
+    border: 1px solid green;
+    grid-area: hd;
+}

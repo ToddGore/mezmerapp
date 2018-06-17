@@ -1,0 +1,8 @@
+.deckarea-main {
+    display: flex;
+   flex-direction: row;
+   justify-content: center;
+   flex-wrap: wrap;
+    /* width: 1400px; */
+    /* border: 2px dotted purple; */
+}

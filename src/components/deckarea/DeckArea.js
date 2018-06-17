@@ -1,19 +1,26 @@
 import React, { Component } from 'react'
+import './deckarea.css';
+import { connect } from 'react-redux'
 import Deck from '../deck/Deck'
-
-
-
-
+import { getUser, getDecks } from '../../ducks/user'
 
 class DeckArea extends Component {
-    constructor(props) {
-        super(props);
-        // this.state = {};
-    }
-    render() {
 
-        // console.log('Deck Area ', this.props.deckProps)
-        let mappedDecks = this.props.deckProps.map((deck, i) => {
+    componentDidMount() {
+        this.props.getUser()
+            .then(() => {
+                this.props.getDecks(this.props.user.id)
+            });
+
+
+    }
+
+
+
+    render() {
+        console.log(this.props)
+        console.log('Deck Area ', this.props.decks)
+        let mappedDecks = this.props.decks.map((deck, i) => {
             return (
                 <Deck key={i}
                     // count={}
@@ -24,13 +31,22 @@ class DeckArea extends Component {
         })
 
         return (
-            <div>
-                {/* <h2>DeckArea</h2> */}
-                {/* <Deck /> */}
+            <div className="deckarea-main">
                 {mappedDecks}
+                {/* <CardEditor /> */}
+                {/* <PlayArea /> */}
             </div>
         );
     }
 }
 
-export default DeckArea;
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        decks: state.decks
+    }
+}
+
+
+export default connect(mapStateToProps, { getUser, getDecks })(DeckArea)
+// export default DeckArea;

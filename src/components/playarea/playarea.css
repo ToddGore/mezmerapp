@@ -1,0 +1,27 @@
+
+.cardeditor-container {
+    background-color: lavenderblush;
+        width: 1450px;
+        height: 605px;
+        text-align: center;
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: 1fr 1fr 1fr;
+        /* grid-template-rows: 1fr 6fr 1fr; */
+        grid-template-areas: 
+        "leftcard playcard rightcard"
+    
+    }
+    
+    .leftcard {
+        grid-area: leftcard;
+        /* border: 1px solid green; */
+    }
+    .playcard {
+        grid-area: playcard;
+        border: 1px solid blue;
+    }
+    .rightcard {
+        grid-area: rightcard;
+        /* border: 1px solid red; */
+    }
