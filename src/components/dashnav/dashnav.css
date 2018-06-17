@@ -10,21 +10,21 @@
     "logout";
 
     height: 100vh;
-    background-color: aqua;
-    border-right: 1px solid blue;
+    background-color: #026670;
+    color: white;
 }
 .sidebar-image{
     grid-area: image;
     height: 150px;
     width: 150px;
-    border: 1px solid blue;
+    /* border: 3px solid #FCE181; */
     border-radius: 50%;
     margin: 20px 10px;
 }
 .image-circle {
     height: 150px;
     width: 150px;
-    border: 1px solid blue;
+    border: 2px dashed #FCE181;
     border-radius: 50%;
 }
 .user-name {

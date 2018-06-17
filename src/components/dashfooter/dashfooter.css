@@ -1,6 +1,7 @@
 
 
 .dash-footer{
-    background-color: beige;
+    background-color: #9FEDD7;
+    border: 2px solid rgb(139, 217, 195);
     grid-area: ft;
 }

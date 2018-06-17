@@ -1,7 +1,7 @@
 
 
 .card-main {
-    background-color: white;
+    background-color: #FEF9C7;
     padding: 5px 5px;
     display: grid;
     grid-gap: 2px;
@@ -14,7 +14,7 @@
     "play edit delete";
 
     margin: 10px 10px;
-    border: 1px solid lightgray;
+    border: 2px solid rgb(234, 229, 179);
     box-shadow: 3px 2px 14px -4px rgba(0,0,0,0.75);
     height: 200px;
     width: 300px;
@@ -57,13 +57,16 @@ background-color: lightblue;
 
 .play {
     /* outline: 1px solid lightseagreen;  */
+    background-color: #FCE181;
     grid-area: play;
 }
 .edit {
+    background-color: #FCE181;
     /* outline: 1px solid lightseagreen;  */
     grid-area: edit;
 }
 .delete {
+    background-color: #FCE181;
     /* outline: 1px solid lightseagreen;  */
     grid-area: delete;
 }
