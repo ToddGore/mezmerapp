@@ -22,3 +22,8 @@
     /* align-self: flex-end; */
     padding: 0 10px;
 }
+
+.main-body {
+    background-color: lightblue;
+
+}

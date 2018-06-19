@@ -18,12 +18,13 @@ class DeckArea extends Component {
 
 
     render() {
-        console.log(this.props)
+
         console.log('Deck Area ', this.props.decks)
         let mappedDecks = this.props.decks.map((deck, i) => {
             return (
                 <Deck key={i}
                     // count={}
+                    deck_id={deck.id}
                     title={deck.name}
                     description={deck.description}
                 />
@@ -33,8 +34,6 @@ class DeckArea extends Component {
         return (
             <div className="deckarea-main">
                 {mappedDecks}
-                {/* <CardEditor /> */}
-                {/* <PlayArea /> */}
             </div>
         );
     }
@@ -49,4 +48,3 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps, { getUser, getDecks })(DeckArea)
-// export default DeckArea;

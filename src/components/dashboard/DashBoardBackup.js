@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getUser, getDecks } from './../../ducks/user'
-import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import './dashboard.css';
-// import Main from '../mainpage/Main'
+import Main from '../mainpage/Main'
 // import routes from '../routes'
 
 import DashNav from '../dashnav/DashNav'
@@ -11,8 +11,7 @@ import DashHeader from '../dashheader/DashHeader'
 import DashFooter from '../dashfooter/DashFooter'
 
 import DeckArea from '../deckarea/DeckArea'
-import PlayArea from '../playarea/PlayArea'
-import CardEditor from '../cardeditor/CardEditor'
+
 
 
 
@@ -30,23 +29,30 @@ class Dashboard extends Component {
     }
 
     render() {
-        // console.log('Dash ', this.props.user)
+
+        let { user_name, picture } = this.props.user;
+        console.log('decks dash ', this.props)
+
         return (
-            <Router>
+            <div>
+
                 <div className="grid">
-                    <DashNav username={this.props.user.user_name} picture={this.props.user.picture} />
+                    <DashNav picture={picture} username={user_name} />
                     <DashHeader />
                     <div className="deck-view">
                         <Switch>
-                            <Route exact path="/dashboard/deckarea" component={DeckArea} />
-                            <Route path="/dashboard/playarea" component={PlayArea} />
-                            <Route path="/dashboard/cardeditor" component={CardEditor} />
+                            <Route path='/' component={Main} exact />
+                            <Route path='/private' component={DeckArea} />
                         </Switch>
-                        {/* <DeckArea /> */}
                     </div>
                     <DashFooter />
                 </div>
-            </Router>
+
+
+                {/* <a href="http://localhost:3047/auth/logout">Failure - Please login Again</a> */}
+
+
+            </div>
         )
     }
 }
@@ -67,3 +73,28 @@ function mapStateToProps(state) {
 // We can connect any action creators to this. See getUser
 // getUser will now be available on props
 export default connect(mapStateToProps, { getUser, getDecks })(Dashboard)
+
+const routes = [
+    {
+        path: '/',
+        exact: true,
+        sidebar: DashNav,
+        header: DashHeader,
+        main: DeckArea,
+        footer: DashFooter
+    },
+    {
+        path: '/playarea',
+        sidebar: DashNav,
+        header: DashHeader,
+        main: PlayArea,
+        footer: DashFooter
+    },
+    {
+        path: '/cardeditor',
+        sidebar: DashNav,
+        header: DashHeader,
+        main: CardEditor,
+        footer: DashFooter
+    }
+]

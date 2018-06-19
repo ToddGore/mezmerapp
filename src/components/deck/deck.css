@@ -47,7 +47,12 @@
 
 
 .card-btn {
+    outline: 1px solid lightseagreen;
     margin: 5px 10px ;
+    background-color: #FCE181;
+    height: 30px;
+    width: 60px;
+    text-align: center;
 }
 
 .card-btn:hover {
@@ -57,16 +62,13 @@ background-color: lightblue;
 
 .play {
     /* outline: 1px solid lightseagreen;  */
-    background-color: #FCE181;
     grid-area: play;
 }
 .edit {
-    background-color: #FCE181;
     /* outline: 1px solid lightseagreen;  */
     grid-area: edit;
 }
 .delete {
-    background-color: #FCE181;
     /* outline: 1px solid lightseagreen;  */
     grid-area: delete;
 }

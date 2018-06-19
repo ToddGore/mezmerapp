@@ -1,0 +1,32 @@
+
+
+.cardlist-q-table {
+    /* height: 400px; */
+    width: 200px;
+    border: 1px solid red;
+}
+
+.cardlist-q-table tr {
+    /* border: 1px solid purple; */
+    height: 20px;
+    background-color: white;
+}
+.cardlist-q-table th {
+    background-color: lightblue;
+}
+
+
+.cardlist-q-table tr:nth-child(odd){
+    background-color: #4C8BF5;
+    color: #fff;
+  }
+
+.cardlist-q-table-dn {
+    text-align: left;
+}
+.cardlist-q-table-numc {
+    text-align: left;
+}
+.cardlist-q-table-empty{
+
+}

@@ -1,24 +1,39 @@
 import React, { Component } from 'react'
 import { HashRouter, Switch, Route, Link } from "react-router-dom";
 import './deck.css';
-import PlayArea from '../playarea/PlayArea'
+
 
 class Deck extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            deckid: ''
+        }
+
+
+        this.deleteDeck = this.deleteDeck.bind(this)
+    }
+
+    deleteDeck(id) {
+        alert('Not working yet! ID ' + id)
+        this.setState({
+            deckid: id
+        })
+    }
 
     render() {
         return (
-            // <Switch>
             <div className="card-main">
                 <div className="card-count">12</div>
                 <div className="card-title"><p>{this.props.title}</p></div>
                 <div className="card-desc"><p>{this.props.description}</p></div>
-                <Link to="/playarea"><button className="card-btn play">Play</button></Link>
-                <button className="card-btn edit">Edit</button>
-                <button className="card-btn delete">Delete</button>
+
+                <Link className="card-btn play" to={`/dashboard/playarea/${this.props.deck_id}`}>Play</Link>
+                <Link className="card-btn edit" to={`/dashboard/cardeditor/${this.props.deck_id}`}>Edit</Link>
+                <Link className="card-btn delete" to={`/dashboard/deckarea/`}
+                    onClick={() => this.deleteDeck(this.props.deck_id)}>Delete</Link>
             </div>
-            //  <Route path="/playarea" component={PlayArea} /> 
-            // </Switch>
         );
     }
 }

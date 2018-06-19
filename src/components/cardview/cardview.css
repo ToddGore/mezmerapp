@@ -1,0 +1,36 @@
+
+
+.cardview-main {
+    
+    border: 1px solid blue;
+    height: 600px;
+    width: 500px;
+    border-radius: 25px;
+}
+
+.cardview-quest {
+    border: 1px solid blue;
+    height: 150px;
+    width: 490px;
+    margin-bottom: 50px;
+}
+.cardview-ans1 {
+    border: 1px solid blue;
+    height: 80px;
+    width: 490px;
+}
+.cardview-ans2 {
+    border: 1px solid blue;
+    height: 80px;
+    width: 490px;
+}
+.cardview-ans3 {
+    border: 1px solid blue;
+    height: 80px;
+    width: 490px;
+}
+.cardview-ans4 {
+    border: 1px solid blue;
+    height: 80px;
+    width: 490px;
+}
