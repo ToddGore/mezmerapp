@@ -14,23 +14,29 @@
     width: 490px;
     margin-bottom: 50px;
 }
+
+.ans-common {
+    height: 65px;
+    width: 500px;
+}
+.cardview-corr {
+    border: 1px solid pink;
+
+}
+
 .cardview-ans1 {
     border: 1px solid blue;
-    height: 80px;
-    width: 490px;
+
 }
 .cardview-ans2 {
     border: 1px solid blue;
-    height: 80px;
-    width: 490px;
+
 }
 .cardview-ans3 {
     border: 1px solid blue;
-    height: 80px;
-    width: 490px;
+
 }
 .cardview-ans4 {
     border: 1px solid blue;
-    height: 80px;
-    width: 490px;
+
 }

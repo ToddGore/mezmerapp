@@ -105,8 +105,51 @@ app.get('/decks/user/:id', (req, res) => {
         .catch(() => res.status(500).send());
 })
 
+// Retrieve Cards by deck_id
+app.get('/cards/deck/:id', (req, res) => {
+    const db = req.app.get('db');
+    const { params } = req;
+    db.getCardsByDeck([params.id])
+        .then(cards => res.status(200).send(cards))
+        .catch(() => res.status(500).send());
+})
+
+// Create Deck
+app.post('/cards/deck', (req, res) => {
+    const deck = req.body;
+    const db = req.app.get('db');
+    db.createDeck(deck).then(result => {
+        res.send(result);
+    })
+});
+
+// Create a Card
+app.post('/cards/deck/card', (req, res) => {
+    const card = req.body;
+    const db = req.app.get('db');
+    db.createCard(card).then(result => {
+        res.send(result);
+    })
+});
+
+// Create a Response Entry
+app.post('/cards/deck/response', (req, res) => {
+    const response = req.body;
+    const db = req.app.get('db');
+    db.createResp(response).then(result => {
+        res.send(result);
+    })
+});
 
 
+// Edit a Deck
+// app.put('/cards/deck/:id', (req, res) => {
+//     const response = req.body;
+//     const db = req.app.get('db');
+//     db.editDeck(response).then(result => {
+//         res.send(result);
+//     })
+// });
 
 
 

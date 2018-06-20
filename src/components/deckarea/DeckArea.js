@@ -19,7 +19,7 @@ class DeckArea extends Component {
 
     render() {
 
-        console.log('Deck Area ', this.props.decks)
+        // console.log('Deck Area ', this.props.decks)
         let mappedDecks = this.props.decks.map((deck, i) => {
             return (
                 <Deck key={i}

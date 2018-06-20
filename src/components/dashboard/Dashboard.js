@@ -40,7 +40,7 @@ class Dashboard extends Component {
                         <Switch>
                             <Route exact path="/dashboard/deckarea" component={DeckArea} />
                             <Route path="/dashboard/playarea" component={PlayArea} />
-                            <Route path="/dashboard/cardeditor" component={CardEditor} />
+                            <Route path="/dashboard/cardeditor/:id" component={CardEditor} />
                         </Switch>
                         {/* <DeckArea /> */}
                     </div>

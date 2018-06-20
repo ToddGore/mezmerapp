@@ -5,24 +5,28 @@ import './deck.css';
 
 class Deck extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            deckid: ''
+
         }
 
 
         this.deleteDeck = this.deleteDeck.bind(this)
     }
+    componentDidMount() {
+
+    }
+
+
 
     deleteDeck(id) {
         alert('Not working yet! ID ' + id)
-        this.setState({
-            deckid: id
-        })
+
     }
 
     render() {
+
         return (
             <div className="card-main">
                 <div className="card-count">12</div>
@@ -30,7 +34,12 @@ class Deck extends Component {
                 <div className="card-desc"><p>{this.props.description}</p></div>
 
                 <Link className="card-btn play" to={`/dashboard/playarea/${this.props.deck_id}`}>Play</Link>
-                <Link className="card-btn edit" to={`/dashboard/cardeditor/${this.props.deck_id}`}>Edit</Link>
+
+                <Link className="card-btn edit"
+
+                    to={`/dashboard/cardeditor/${this.props.deck_id}`}>Edit
+                </Link>
+
                 <Link className="card-btn delete" to={`/dashboard/deckarea/`}
                     onClick={() => this.deleteDeck(this.props.deck_id)}>Delete</Link>
             </div>

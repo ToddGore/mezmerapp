@@ -8,20 +8,16 @@ class CardList extends Component {
         this.state = {};
     }
     render() {
+
         return (
             <div>
-                <table className='cardlist-q-table'>
-                    <tr><th className='cardlist-q-table-dn'>Deck Name</th></tr>
-                    <tr><th className='cardlist-q-table-numc'>Number of Cards:</th></tr>
-                    <tr><th className='cardlist-q-table-empty'></th></tr>
-                    <tr><th>QUESTIONS</th></tr>
-                    <tr><td>Test</td></tr>
-                    <tr><td>Test 2</td></tr>
-                    <tr><td>Test 3</td></tr>
-                    <tr><td>Test 4</td></tr>
-                    <tr><td>Test 5</td></tr>
-                    <tr><td>Test 6</td></tr>
-                </table>
+                <ul>
+                    {this.props.cards.map(((card, i) => {
+                        return (
+                            <li key={i}>{card.question}</li>
+                        )
+                    }))}
+                </ul>
 
             </div>
         );
