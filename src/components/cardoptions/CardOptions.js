@@ -10,9 +10,13 @@ class CardOptions extends Component {
     render() {
         return (
             <div className="cardopt-main">
-                <button></button>
-                <button></button>
-                <button></button>
+                <button className='cardopt-button'>Add Card</button>
+                <br />
+                <button className='cardopt-button'>Clear Form</button>
+                <br />
+                <button className='cardopt-button'>Delete Card</button>
+                <br />
+                <button className='cardopt-button'>Update Card</button>
             </div>
         );
     }

@@ -1,6 +1,6 @@
 
 .cardeditor-container {
-background-color: white;
+    background-color: white;
     width: 1450px;
     height: 605px;
     display: grid;
@@ -23,4 +23,92 @@ background-color: white;
 .options {
     grid-area: options;
     border: 1px solid red;
+}
+.cardview-main {
+    font-size: 26px;
+    border: 1px solid blue;
+    height: 600px;
+    width: 500px;
+    border-radius: 25px;
+}
+
+.cardview-quest {
+
+    border: 1px dashed red;
+    height: 150px;
+    width: 490px;
+    margin-bottom: 50px;
+}
+
+.ans-common {
+    height: 65px;
+    width: 500px;
+}
+.cardview-corr {
+    border: 1px solid pink;
+
+}
+
+.cardview-ans1 {
+    border: 1px solid blue;
+
+}
+.cardview-ans2 {
+    border: 1px solid blue;
+
+}
+.cardview-ans3 {
+    border: 1px solid blue;
+
+}
+.cardview-ans4 {
+    border: 1px solid blue;
+
+}
+.cardopt-main {
+    height: 300px;
+    width: 200px;
+    border: 1px solid green;
+}
+
+.cardopt-button {
+    height: 30px;
+    width: 100px;
+    margin: 10px 10px;
+}
+.list {
+    /* height: 400px; */
+    width: 300px;
+    border: 1px solid lightskyblue;
+}
+.list li {
+    border: 1px solid lightskyblue;
+}
+
+
+
+/* .list li:nth-child(even){
+    background-color: lightskyblue;
+    color: #fff;
+  } */
+
+
+
+.listActive { 
+    background-color: yellow;
+}
+
+
+
+
+textarea {
+    background-color: beige;
+    height: 50px;
+    width: 480px;
+    font-size: 18px;
+    outline: none;
+    resize: none;
+  }
+#question {
+    height: 150px;
 }

@@ -142,15 +142,24 @@ app.post('/cards/deck/response', (req, res) => {
 });
 
 
-// Edit a Deck
-// app.put('/cards/deck/:id', (req, res) => {
-//     const response = req.body;
-//     const db = req.app.get('db');
-//     db.editDeck(response).then(result => {
-//         res.send(result);
-//     })
-// });
+// Update a Deck by deck_id 
+app.put('/cards/deck/:id', (req, res) => {
+    const db = req.app.get('db');
+    db.deck.update({ id: req.params.id }, req.body)
+        .then(deck => res.status(200).send(deck))
+        .catch(() => res.status(500).send());
+})
 
+// Update a Card
+
+// Update a Response
+
+
+// Delete a Deck
+
+// Delete a Card
+
+// Delete a Response
 
 
 

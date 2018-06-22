@@ -5,3 +5,9 @@
     width: 200px;
     border: 1px solid green;
 }
+
+.cardopt-button {
+    height: 30px;
+    width: 100px;
+    margin: 10px 10px;
+}
