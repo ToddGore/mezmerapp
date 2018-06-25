@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^1.2.1",
+    "ajv": "^6.5.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
@@ -28,5 +29,8 @@
     "eject": "react-scripts eject"
   },
   "main": "./server/index.js",
-  "proxy": "http://localhost:3047"
+  "proxy": "http://localhost:3047",
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.5"
+  }
 }

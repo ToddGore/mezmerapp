@@ -88,6 +88,8 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     successRedirect: 'http://localhost:3000/#/dashboard/deckarea'
 }))
 
+
+
 app.get('/auth/user', (req, res) => {
     if (req.user) {
         res.status(200).send(req.user)
@@ -96,7 +98,7 @@ app.get('/auth/user', (req, res) => {
     }
 })
 
-// Retrieve Decks by user_id
+// Get Decks by user_id
 app.get('/decks/user/:id', (req, res) => {
     const db = req.app.get('db');
     const { params } = req;
@@ -151,15 +153,41 @@ app.put('/cards/deck/:id', (req, res) => {
 })
 
 // Update a Card
+app.put('/cards/card/:id', (req, res) => {
+    const db = req.app.get('db');
+    db.card.update({ id: req.params.id }, req.body)
+        .then(card => res.status(200).send(card))
+        .catch(() => res.status(500).send());
+})
 
 // Update a Response
 
 
 // Delete a Deck
 
+
 // Delete a Card
+app.delete('/cards/card/delete/:id', (req, res) => {
+    console.log('server_del ', req.params.id)
+    const db = req.app.get('db');
+    const { params } = req;
+    db.delCard([req.params.id])
+        .then(() => res.status(200).send())
+        .catch(() => res.status(500).send());
+    // db.card.destroy({ id: req.params.id }, function (err, res) {
+    //Array containing the destroyed record is returned
+    // });
+})
+
 
 // Delete a Response
+app.delete('/cards/deck/response/:id', (req, res) => {
+    const db = req.app.get('db');
+    const { params } = req;
+    db.delResp([req.params.id])
+        .then(() => res.status(200).send())
+        .catch(() => res.status(500).send());
+});
 
 
 

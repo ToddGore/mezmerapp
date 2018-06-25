@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { HashRouter, Switch, Route, Link } from "react-router-dom";
 import './deck.css';
+import { getDecks } from '../../ducks/user'
+import { connect } from 'react-redux'
+
+
 
 
 class Deck extends Component {
@@ -15,7 +19,7 @@ class Deck extends Component {
         this.deleteDeck = this.deleteDeck.bind(this)
     }
     componentDidMount() {
-
+        // this.props.getCards()
     }
 
 
@@ -36,7 +40,6 @@ class Deck extends Component {
                 <Link className="card-btn play" to={`/dashboard/playarea/${this.props.deck_id}`}>Play</Link>
 
                 <Link className="card-btn edit"
-
                     to={`/dashboard/cardeditor/${this.props.deck_id}`}>Edit
                 </Link>
 
@@ -47,4 +50,11 @@ class Deck extends Component {
     }
 }
 
-export default Deck;
+function mapStateToProps(state) {
+    return {
+        decks: state.decks
+    }
+}
+
+
+export default connect(mapStateToProps, { getDecks })(Deck)

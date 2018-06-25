@@ -1,27 +1,121 @@
 
-.cardeditor-container {
-    background-color: lavenderblush;
-        width: 1450px;
-        height: 605px;
-        text-align: center;
-        display: grid;
-        grid-gap: 5px;
-        grid-template-columns: 1fr 1fr 1fr;
-        /* grid-template-rows: 1fr 6fr 1fr; */
-        grid-template-areas: 
-        "leftcard playcard rightcard"
+.playarea-container {
+    display: grid;
+    /* background-color: lawngreen; */
+    /* border: 1px solid green; */
+    width: 1470px;
+    height: 605px;
+    /* text-align: center; */
+        
+    grid-gap: 5px;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-template-rows: 1fr 6fr 1fr; */
+    grid-template-areas: 
+    "leftcard playcard rightcard";
     
-    }
+}
     
-    .leftcard {
-        grid-area: leftcard;
-        /* border: 1px solid green; */
-    }
-    .playcard {
-        grid-area: playcard;
-        border: 1px solid blue;
-    }
-    .rightcard {
-        grid-area: rightcard;
-        /* border: 1px solid red; */
-    }
+.leftcard {
+    grid-area: leftcard;
+    /* border: 1px solid green; */
+}
+.playcard {
+    display: grid;
+    justify-items: center;
+    grid-area: playcard;
+    /* border: 1px dashed blue; */
+}
+.rightcard {
+    grid-area: rightcard;
+    /* border: 1px solid red; */
+
+}
+
+.scene {
+    display: grid;
+    width: 300px;
+    height: 460px;
+    /* border: 1px solid lightcoral; */
+    margin: 40px 0;
+    perspective: 600px;
+
+}
+
+.card {
+    /* border: 2px dashed violet; */
+    width: 300px;
+    height: 460px;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+    
+  }
+  
+  .card.is-flipped {
+    /* border: 2px dashed blue; */
+    transform: rotateY(180deg);
+  }
+  
+  .card__face {
+    position: absolute;
+    width: 300px;
+    height: 460px;
+    /* line-height: 260px; */
+    /* color: white; */
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    backface-visibility: hidden;
+    border-radius: 25px;
+
+    -webkit-box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
+    -moz-box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
+    box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
+
+    
+
+  }
+  
+  .card__face--front {
+    background-color: white;
+    line-height: 360px;
+
+  }
+  
+  .card__face--back {
+    text-align: center;
+    /* color: white; */
+    background: white;
+    transform: rotateY(180deg);
+  }
+  .quest-box {
+    text-align: left;
+    background-color: lightcyan;
+    height: 80px;
+    width: 280px;
+    border: 1px solid white;
+    margin: 40px auto;
+    padding: 10px 10px;
+    font-size: 16px;
+  }
+
+
+  .box {
+    padding: 10px 10px;
+    text-align: left;
+    display: block;
+    height: 60px;
+    width: 280px;
+    /* border: 1px solid white; */
+    border-top: 1px solid lightgray;
+    margin: 10px auto;
+    font-size: 16px;
+  }
+  .box:hover {
+        background-color: lightcyan;
+  }
+
+  .green {
+    background-color: greenyellow;
+  }

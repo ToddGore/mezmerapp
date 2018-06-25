@@ -1,0 +1,2 @@
+DELETE FROM card
+WHERE id = $1;
