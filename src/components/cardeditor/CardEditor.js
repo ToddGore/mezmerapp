@@ -90,12 +90,21 @@ class CardEditor extends Component {
 
     updateCard(card) {
         const cardId = card.id
-        delete card.id
-        console.log('updateCard ', card);
-        axios.put(`/cards/card/${cardId}`, card)
+        const deckId = card.deck_id
+        // delete card.id
+        const newObj = Object.assign({}, this.state.temp_card,
+            {
+                deck_id: this.state.card.deck_id
+            })
+
+        console.log('updateCard ', newObj);
+        axios.put(`/cards/card/${cardId}`, newObj)
             .then(results => {
-                this.setState({ card: results.data });
-                this.setState({ updCard_Enabled: false });
+                this.setState({
+                    card: results.data,
+                    updCard_Enabled: false,
+                    createCard_Enabled: false
+                });
                 this.reloadCards()
             })
     }
@@ -217,9 +226,6 @@ class CardEditor extends Component {
         return (
             <div className='cardeditor-container'>
                 <div className='list'>
-                    <div className="list-decks">
-
-                    </div>
 
                     <div className="list-cards">
                         <ul>

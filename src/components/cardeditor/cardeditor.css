@@ -79,28 +79,15 @@
 }
 
 .list {
-    /* height: 400px; */
     width: 550px;
     border: 1px solid red;
-    display: grid;
-    grid-gap: 5px;
-    grid-template-columns: 1fr 1fr;
-    /* grid-template-rows: 1fr 6fr 1fr; */
-    grid-template-areas: 
-    "decks cards";
 }
 
-.list-decks {
-    grid-area: decks;
-    height: 100px;
-    width: 250px;
-    border: 1px solid blue;
-}
+
 
 .list-cards {
-    grid-area: cards;
     height: 100px;
-    width: 250px;
+    width: 400px;
     border: 1px solid greenyellow;
 }
 

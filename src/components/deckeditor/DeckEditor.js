@@ -38,52 +38,100 @@ class DeckEditor extends Component {
             }
         };
 
-
         this.listHandleClick = this.listHandleClick.bind(this)
         this.handleChangeDeck = this.handleChangeDeck.bind(this)
         this.myColorDeck = this.myColorDeck.bind(this)
         this.toggleLi = this.toggleLi.bind(this)
+        this.createDeck = this.createDeck.bind(this)
+        this.clearForm = this.clearForm.bind(this)
+        this.delDeck = this.delDeck.bind(this)
+        this.updateDeck = this.updateDeck.bind(this)
+        this.reloadDecks = this.reloadDecks.bind(this)
     }
 
     componentDidMount() {
         this.props.getUser().then(() => {
             this.props.getDecks(+this.props.user.id)
+        }).then(() => {
+            this.setState({
+                temp_deck: { ...this.state.temp_deck, user_id: +this.props.user.id, }
+            })
         })
-            .then(console.log('Decks ', this.props))
     }
 
-    createDeck() {
 
+    reloadDecks() {
+        const user_id = +this.props.user.id
+        this.props.getDecks(user_id)
+            .then(this.setState({
+                deck: { ...this.state.deck, user_id: user_id, }
+            }))
     }
+
+
+    createDeck(deck) {
+        console.log('createDeck ', this.state.temp_deck)
+        axios.post(`/cards/deck`, this.state.temp_deck)
+            .then(results => {
+                this.setState({ deck: results.data })
+                this.reloadDecks()
+            })
+    }
+
+    delDeck(deck) {
+        axios.delete(`/cards/deck/delete/${deck.id}`)
+
+            .then(results => {
+                // this.setState({ 'card': results.data });
+                this.setState({ delDeck_Enabled: false });
+                this.reloadDecks()
+                this.clearForm()
+            })
+    }
+    updateDeck(deck) {
+        const deckId = deck.id
+        const newObjD = Object.assign({}, this.state.temp_deck,
+            {
+                user_id: deck.user_id
+            })
+        console.log('updateDeck ', newObjD);
+        axios.put(`/cards/deck/${deckId}`, newObjD)
+            .then(results => {
+                this.reloadDecks()
+                this.setState({
+                    deck: results.data,
+                    updDeck_Enabled: false,
+                    createDeck_Enabled: false
+                });
+
+
+            })
+    }
+
+
     clearForm() {
-
+        this.setState({
+            temp_deck: {
+                name: "",
+                description: ""
+            },
+            clrDeck_Enabled: false
+        })
     }
-    delDeck() {
-
-    }
-    updateDeck() {
-
-    }
-
 
 
 
 
     listHandleClick(list_deck, toggle) {
         this.toggleLi(toggle)
-        console.log('Clicked ', list_deck, ' ', toggle)
+        // console.log('Clicked ', list_deck, ' ', toggle)
         this.setState({
             li_active: true,
             delDeck_Enabled: true,
             clrDeck_Enabled: true,
             createDeck_Enabled: false,
-            clrDeck_Enabled: false,
-            delDeck_Enabled: false,
             updDeck_Enabled: false,
             rtnDash_Enabled: true,
-
-
-
 
             deck: list_deck,
             temp_deck: {
@@ -112,7 +160,7 @@ class DeckEditor extends Component {
     }
 
     handleChangeDeck(e) {
-        console.log('change ', e.target.value)
+        // console.log('change ', e.target.value)
         this.setState({
             temp_deck: Object.assign({}, this.state.temp_deck, { [e.target.id]: e.target.value })
         })
@@ -171,7 +219,7 @@ class DeckEditor extends Component {
                     </ul>
                 </div>
                 <div className='deckeditor-editor'>
-                    <textarea className='deckeditor-title' 
+                    <textarea className='deckeditor-title'
                         rows="10" cols="70" wrap="hard"
                         id="name"
                         placeholder="Name?"
@@ -187,7 +235,7 @@ class DeckEditor extends Component {
                     </textarea>
                 </div>
                 <div className='deckeditor-options'>
-                    <div className="cardopt-main">
+                    <div className="deckopt-main">
                         <button
                             disabled={!this.state.createDeck_Enabled}
                             className='deckopt-button'

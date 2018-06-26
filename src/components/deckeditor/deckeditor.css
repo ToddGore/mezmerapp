@@ -36,3 +36,15 @@
     grid-area: options;
     border: 1px solid red;
 }
+
+.deckopt-main {
+    height: 300px;
+    width: 200px;
+    border: 1px solid green;
+}
+
+.deckopt-button {
+    height: 30px;
+    width: 100px;
+    margin: 10px 10px;
+}
