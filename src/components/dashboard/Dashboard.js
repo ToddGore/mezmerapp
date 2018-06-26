@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getUser, getDecks } from './../../ducks/user'
-import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import './dashboard.css';
-// import Main from '../mainpage/Main'
-// import routes from '../routes'
+
 
 import DashNav from '../dashnav/DashNav'
 import DashHeader from '../dashheader/DashHeader'
@@ -13,14 +12,12 @@ import DashFooter from '../dashfooter/DashFooter'
 import DeckArea from '../deckarea/DeckArea'
 import PlayArea from '../playarea/PlayArea'
 import CardEditor from '../cardeditor/CardEditor'
-
+import DeckEditor from '../deckeditor/DeckEditor'
 
 
 
 class Dashboard extends Component {
-    constructor(props) {
-        super(props);
-    }
+
 
     componentDidMount() {
         this.props.getUser()
@@ -39,7 +36,8 @@ class Dashboard extends Component {
                     <div className="deck-view">
                         <Switch>
                             <Route exact path="/dashboard/deckarea" component={DeckArea} />
-                            <Route path="/dashboard/playarea" component={PlayArea} />
+                            <Route path="/dashboard/playarea/:id" component={PlayArea} />
+                            <Route path="/dashboard/deckeditor/" component={DeckEditor} />
                             <Route path="/dashboard/cardeditor/:id"
                                 component={CardEditor} />
                         </Switch>

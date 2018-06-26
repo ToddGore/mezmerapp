@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { HashRouter, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './deck.css';
 import { getDecks } from '../../ducks/user'
 import { connect } from 'react-redux'
-
-
-
+import axios from 'axios';
 
 class Deck extends Component {
 
@@ -14,23 +12,22 @@ class Deck extends Component {
         this.state = {
 
         }
-
-
         this.deleteDeck = this.deleteDeck.bind(this)
     }
     componentDidMount() {
         // this.props.getCards()
     }
 
-
-
     deleteDeck(id) {
-        alert('Not working yet! ID ' + id)
+        // alert('Not working yet! ID ' + id)
+        axios.delete(`/cards/deck/delete/${id}`)
+            .then(results => {
+                // this.getDecks()
 
+            })
     }
 
     render() {
-
         return (
             <div className="card-main">
                 <div className="card-count">12</div>

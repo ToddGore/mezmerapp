@@ -5,11 +5,6 @@ import { connect } from 'react-redux'
 import { getCards } from './../../ducks/user'
 import { Link } from "react-router-dom";
 
-import { matchPath } from 'react-router'
-
-
-
-
 
 class PlayArea extends Component {
     constructor(props) {
@@ -28,15 +23,18 @@ class PlayArea extends Component {
         this.AnswerClickHandler = this.AnswerClickHandler.bind(this)
         this.AnswerModal = this.AnswerModal.bind(this)
     }
-    componentDidMount() {
 
-        const deck_id = 3
-        console.log('DeckID ', deck_id)
-        this.props.getCards(deck_id)
+    componentDidMount() {
+        console.log('props ', +this.props.match.params.id)
+        // const deck_id = 3
+        // console.log('DeckID ', deck_id)
+
+        this.props.getCards(+this.props.match.params.id)
             .then(this.setState({
                 cards: this.props.cards
             }))
     }
+
 
     toggleClass() {
         // const currentState = this.state.active;
@@ -50,7 +48,7 @@ class PlayArea extends Component {
 
     displayCard() {
         let card = this.cardSelector()
-        console.log('cardSel ', card)
+        // console.log('cardSel ', card)
         this.setState({
             card: card,
             ans1: false,
@@ -82,7 +80,6 @@ class PlayArea extends Component {
     AnswerClickHandler(answer) {
         const card = this.state.card
 
-
         if (card.correct_answer === card[answer]) {
 
             switch (answer) {
@@ -98,6 +95,8 @@ class PlayArea extends Component {
                     break;
                 case 'answer_4':
                     this.setState({ ans1: false, ans2: false, ans3: false, ans4: true })
+                    break;
+                default:
                     break;
             }
 
@@ -115,6 +114,8 @@ class PlayArea extends Component {
                 case 'answer_4':
                     this.setState({ ans1w: false, ans2w: false, ans3w: false, ans4w: true })
                     break;
+                default:
+                    break;
             }
 
 
@@ -125,8 +126,7 @@ class PlayArea extends Component {
 
 
     render() {
-        // console.log('Whats in props', this.props.cards)
-        // console.log('Whats in state', this.state)
+
         return (
             <div className='playarea-container'>
                 <div className='leftcard'></div>

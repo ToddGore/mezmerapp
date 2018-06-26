@@ -1,0 +1,38 @@
+
+
+.deckeditor-container {
+    background-color: white;
+    width: 1450px;
+    height: 605px;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 2fr 2fr 1fr;
+    /* grid-template-rows: 1fr 6fr 1fr; */
+    grid-template-areas: 
+    "list editor options";
+}
+
+.deckeditor-list {
+    grid-area: list;
+    border: 2px dashed palevioletred;
+}
+.deckeditor-editor {
+    grid-area: editor;
+    border: 2px solid blue;
+}
+.deckeditor-title {
+    height: 100px;
+    margin: 20px 20px;
+    border: 2px solid green;
+}
+.deckeditor-body {
+    height: 100px;
+    margin: 20px 20px;
+    border: 2px solid goldenrod;
+}
+
+
+.deckeditor-options {
+    grid-area: options;
+    border: 1px solid red;
+}

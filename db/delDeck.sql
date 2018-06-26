@@ -1,0 +1,3 @@
+DELETE FROM deck
+WHERE id = $1;
+SELECT * FROM deck;

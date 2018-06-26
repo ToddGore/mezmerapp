@@ -4,10 +4,7 @@ const express = require('express')
     , bodyParser = require('body-parser')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
-    // , cors = require('cors')
     , massive = require('massive');
-
-
 
 
 const {
@@ -23,15 +20,8 @@ const {
 const app = express();
 
 app.use(bodyParser.json());
-// app.use(cors());
 
-
-massive(CONNECTION_STRING).then(db => {
-    app.set('db', db)
-})
-
-
-
+massive(CONNECTION_STRING).then(db => { app.set('db', db) })
 
 app.use(session({
     secret: SESSION_SECRET,
@@ -69,10 +59,8 @@ passport.serializeUser((primaryKeyID, done) => {
     done(null, primaryKeyID);
 })
 passport.deserializeUser((primaryKeyID, done) => {
-    // done(null, id);
     app.get("db").find_session_user([primaryKeyID]).then(user => {
         done(null, user[0])
-        // after done user[0] goes to req.user
     })
 })
 
@@ -87,7 +75,6 @@ app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
     successRedirect: 'http://localhost:3000/#/dashboard/deckarea'
 }))
-
 
 
 app.get('/auth/user', (req, res) => {
@@ -143,7 +130,6 @@ app.post('/cards/deck/response', (req, res) => {
     })
 });
 
-
 // Update a Deck by deck_id 
 app.put('/cards/deck/:id', (req, res) => {
     const db = req.app.get('db');
@@ -164,11 +150,18 @@ app.put('/cards/card/:id', (req, res) => {
 
 
 // Delete a Deck
-
+app.delete('/cards/deck/delete/:id', (req, res) => {
+    console.log('server_del_deck ', req.params.id)
+    const db = req.app.get('db');
+    const { params } = req;
+    db.delDeck([req.params.id])
+        .then((decks) => res.status(200).send(decks))
+        .catch(() => res.status(500).send());
+})
 
 // Delete a Card
 app.delete('/cards/card/delete/:id', (req, res) => {
-    console.log('server_del ', req.params.id)
+    console.log('server_del_card ', req.params.id)
     const db = req.app.get('db');
     const { params } = req;
     db.delCard([req.params.id])
@@ -179,16 +172,15 @@ app.delete('/cards/card/delete/:id', (req, res) => {
     // });
 })
 
-
 // Delete a Response
 app.delete('/cards/deck/response/:id', (req, res) => {
+    console.log('server_del_response ', req.params.id)
     const db = req.app.get('db');
     const { params } = req;
     db.delResp([req.params.id])
         .then(() => res.status(200).send())
         .catch(() => res.status(500).send());
 });
-
 
 
 app.listen(SERVER_PORT, () => {

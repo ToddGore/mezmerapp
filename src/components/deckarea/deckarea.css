@@ -6,3 +6,39 @@
     /* width: 1400px; */
     /* border: 2px dotted purple; */
 }
+
+.new-deck {
+    /* display: inline; */
+    /* margin: 0 auto; */
+    padding: 5px 5px;
+    height: 200px;
+    width: 300px;
+    background-color: white;
+    margin: 10px 10px;
+    border: 2px solid rgb(234, 229, 179);
+    box-shadow: 3px 2px 14px -4px rgba(0,0,0,0.75);
+    font-weight: bold;
+    font-size: large;
+
+}
+
+.new-deck-txt {
+    margin: 10px auto;
+    /* border: 1px solid blue; */
+    height: 30px;
+    width: 250px;
+}
+.new-deck-img { 
+    margin: 30px auto;
+    /* border: 1px solid red; */
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    -webkit-transition: -webkit-transform .8s ease-in-out;
+    transition:         transform .8s ease-in-out;
+}
+
+.new-deck-img:hover {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }

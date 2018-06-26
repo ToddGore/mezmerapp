@@ -5,7 +5,7 @@
     height: 605px;
     display: grid;
     grid-gap: 5px;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr;
     /* grid-template-rows: 1fr 6fr 1fr; */
     grid-template-areas: 
     "list editor options"
@@ -14,11 +14,12 @@
 
 .list {
     grid-area: list;
-    border: 1px solid green;
+    border: 5px dashed palevioletred;
 }
+
 .editor {
     grid-area: editor;
-    border: 1px solid blue;
+    /* border: 2px solid blue; */
 }
 .options {
     grid-area: options;
@@ -34,7 +35,7 @@
 
 .cardview-quest {
 
-    border: 1px dashed red;
+    /* border: 1px dashed red; */
     height: 150px;
     width: 490px;
     margin-bottom: 50px;
@@ -45,20 +46,20 @@
     width: 500px;
 }
 .cardview-corr {
-    border: 1px solid pink;
+    /* border: 1px solid pink; */
 
 }
 
 .cardview-ans1 {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 
 }
 .cardview-ans2 {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 
 }
 .cardview-ans3 {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 
 }
 .cardview-ans4 {
@@ -76,15 +77,43 @@
     width: 100px;
     margin: 10px 10px;
 }
+
 .list {
     /* height: 400px; */
-    width: 300px;
-    border: 1px solid lightskyblue;
-}
-.list li {
-    border: 1px solid lightskyblue;
+    width: 550px;
+    border: 1px solid red;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: 1fr 6fr 1fr; */
+    grid-template-areas: 
+    "decks cards";
 }
 
+.list-decks {
+    grid-area: decks;
+    height: 100px;
+    width: 250px;
+    border: 1px solid blue;
+}
+
+.list-cards {
+    grid-area: cards;
+    height: 100px;
+    width: 250px;
+    border: 1px solid greenyellow;
+}
+
+.list-cards li {
+    margin: 5px 0;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+}
+.list-cards ul {
+    border: 1px solid lightskyblue;
+}
 
 
 /* .list li:nth-child(even){

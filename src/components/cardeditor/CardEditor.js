@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import './cardeditor.css';
 import { connect } from 'react-redux'
-import { getUser, getCards } from './../../ducks/user'
+import { getUser, getDecks, getCards } from './../../ducks/user'
 
 
 
@@ -11,7 +11,9 @@ class CardEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            li_active: true,
+            active: null,
+            DeckActive: null,
+            li_active: false,
             thisClass: null,
             createCard_Enabled: false,
             clrCard_Enabled: false,
@@ -37,20 +39,25 @@ class CardEditor extends Component {
         this.listHandleClick = this.listHandleClick.bind(this)
         this.reloadCards = this.reloadCards.bind(this)
         this.addResponse = this.addResponse.bind(this)
-        this.delResponse = this.delResponse.bind(this)
-        this.updateDeck = this.updateDeck.bind(this)
         this.updateCard = this.updateCard.bind(this)
         this.createCard = this.createCard.bind(this)
+        this.toggleLi = this.toggleLi.bind(this)
+        this.myColor = this.myColor.bind(this)
         this.delCard = this.delCard.bind(this)
     }
 
     componentDidMount() {
         this.props.getUser()
             .then(() => {
+                console.log('compo ', this.props.user.id)
                 this.setState({
                     temp_response: { ...this.state.temp_response, user_id: +this.props.user.id, }
                 })
-            }).then(this.reloadCards())
+                this.props.getDecks(+this.props.user.id).then(console.log('Decks ', this.props))
+            })
+            .then(this.reloadCards())
+
+
     }
 
     reloadCards() {
@@ -71,7 +78,6 @@ class CardEditor extends Component {
     }
 
     delCard(card) {
-        console.log('delcard ', card)
         axios.delete(`/cards/card/delete/${card.id}`)
 
             .then(results => {
@@ -80,16 +86,6 @@ class CardEditor extends Component {
                 this.reloadCards()
                 this.clearForm()
             })
-    }
-
-    // No longer needed? 
-    delResponse(card) {
-        axios.delete(`/cards/card/response/${card.id}`)
-        // .then(results => {
-        // this.setState({ 'temp_response': results.data });
-        // this.setState({ delCard_Enabled: false });
-        // this.reloadCards()
-        // })
     }
 
     updateCard(card) {
@@ -104,7 +100,6 @@ class CardEditor extends Component {
             })
     }
     createCard(card) {
-        // const sendCard
         this.setState({
             temp_card: Object.assign({}, this.state.temp_card,
                 { deck_id: this.state.card.deck_id })
@@ -119,8 +114,6 @@ class CardEditor extends Component {
     }
 
     addResponse() {
-        // const resp = { card_id: this.state.card.id, deck_id: this.state.card.deck_id }
-        // card_id, user_id, res_time, deck_id
         this.setState({
             temp_response: Object.assign({}, this.state.temp_response,
                 { card_id: this.state.card.id, deck_id: this.state.card.deck_id })
@@ -179,8 +172,10 @@ class CardEditor extends Component {
     }
 
 
-    listHandleClick(list_card) {
+    listHandleClick(list_card, toggle) {
+        this.toggleLi(toggle)
         this.setState({
+            li_active: true,
             delCard_Enabled: true,
             clrCard_Enabled: true,
             card: list_card,
@@ -191,9 +186,6 @@ class CardEditor extends Component {
                 correct_answer: list_card.correct_answer
             }
 
-
-
-
         }, () => {
             // console.log("card ", item.id)
             // console.log("temp_card ", this.state.temp_card)
@@ -202,24 +194,49 @@ class CardEditor extends Component {
         })
     }
 
+
+
+
+    toggleLi(position) {
+        if (this.state.active === position) {
+            this.setState({ active: null })
+        } else {
+            this.setState({ active: position })
+        }
+    }
+    myColor(position) {
+        if (this.state.active === position) {
+            return "yellow";
+        }
+        return "";
+    }
+
+
     render() {
-        // console.log("CardEditor ", this.state.temp_response)
+        console.log("CardEditor ", this.props.user.id)
         return (
             <div className='cardeditor-container'>
-
                 <div className='list'>
-                    <ul>
-                        {this.props.cards.map(((list_card, i) => {
+                    <div className="list-decks">
 
-                            return (
-                                <li key={i}
-                                    onClick={() => { this.listHandleClick(list_card) }}
-                                >{list_card.question}
-                                </li>
-                            )
-                        }))}
-                    </ul>
+                    </div>
 
+                    <div className="list-cards">
+                        <ul>
+                            <li>CARDS</li>
+                            <hr />
+                            {this.props.cards.map(((list_card, i) => {
+                                return (
+                                    <li key={i}
+                                        style={{ background: this.myColor(i) }}
+                                        onClick={() => { this.listHandleClick(list_card, i) }}
+                                    >
+                                        {list_card.question}
+                                    </li>
+                                )
+                            }))}
+                        </ul>
+                    </div>
                 </div>
                 <div className='editor'>
                     <div className="cardview-main">
@@ -242,6 +259,7 @@ class CardEditor extends Component {
                                 onChange={(e) => { this.handleChangeQuestion(e) }}>
                                 ></textarea>
                         </div>
+
                         <div className="ans-common cardview-ans1">
                             <textarea rows="3" cols="70"
                                 id="answer_1"
@@ -250,6 +268,7 @@ class CardEditor extends Component {
                                 onChange={(e) => { this.handleChangeQuestion(e) }}>
                                 ></textarea>
                         </div>
+
                         <div className="ans-common cardview-ans2">
                             <textarea rows="3" cols="70"
                                 id="answer_2"
@@ -258,6 +277,7 @@ class CardEditor extends Component {
                                 onChange={(e) => { this.handleChangeQuestion(e) }}>
                                 ></textarea>
                         </div>
+
                         <div className="ans-common cardview-ans3">
                             <textarea rows="3" cols="70"
                                 id="answer_3"
@@ -266,6 +286,7 @@ class CardEditor extends Component {
                                 onChange={(e) => { this.handleChangeQuestion(e) }}>
                                 ></textarea>
                         </div>
+
                         <div className="ans-common cardview-ans4">
                             <textarea rows="3" cols="70"
                                 id="answer_4"
@@ -274,9 +295,9 @@ class CardEditor extends Component {
                                 onChange={(e) => { this.handleChangeQuestion(e) }}>
                                 ></textarea>
                         </div>
+
                     </div>
                 </div>
-
 
                 <div className='options'>
                     <div className="cardopt-main">
@@ -323,8 +344,9 @@ class CardEditor extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
-        cards: state.cards
+        cards: state.cards,
+        decks: state.decks
     }
 }
 
-export default connect(mapStateToProps, { getUser, getCards })(CardEditor)
+export default connect(mapStateToProps, { getUser, getDecks, getCards })(CardEditor)

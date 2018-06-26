@@ -38,7 +38,7 @@
     /* border: 1px solid lightcoral; */
     margin: 40px 0;
     perspective: 600px;
-
+    animation: slideIn 2s forwards;
 }
 
 .card {
@@ -73,7 +73,7 @@
     -moz-box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
     box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
 
-    
+    /* animation: slideIn 2s forwards; */
 
   }
   
@@ -212,3 +212,29 @@
     from {top: 0px; opacity: 0}
     to {top: 250px; opacity: 1}
 }
+
+/* Slide in Animation */
+@-webkit-keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @-moz-keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
