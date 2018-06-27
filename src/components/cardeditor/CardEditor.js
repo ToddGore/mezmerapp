@@ -70,7 +70,7 @@ class CardEditor extends Component {
 
     // When is this used?
     updateDeck(deck) {
-        console.log('updateDeck ', deck);
+        // console.log('updateDeck ', deck);
         axios.put(`/cards/deck/${deck.id}`, deck)
             .then(results => {
                 this.setState({ 'deck': results.data });
@@ -97,11 +97,11 @@ class CardEditor extends Component {
                 deck_id: this.state.card.deck_id
             })
 
-        console.log('updateCard ', newObj);
+        // console.log('updateCard ', newObj);
         axios.put(`/cards/card/${cardId}`, newObj)
             .then(results => {
                 this.setState({
-                    card: results.data,
+                    card: results.data[0],
                     updCard_Enabled: false,
                     createCard_Enabled: false
                 });
@@ -113,25 +113,27 @@ class CardEditor extends Component {
             temp_card: Object.assign({}, this.state.temp_card,
                 { deck_id: this.state.card.deck_id })
         }, () => {
-            console.log('createCard ', this.state.temp_card)
+            // console.log('createCard ', this.state.temp_card)
             axios.post(`/cards/deck/card`, this.state.temp_card)
                 .then(results => {
-                    this.setState({ card: results.data });
+                    this.setState({ card: results.data[0] });
+                    // console.log('createCard_result ', results.data[0].id)
+                    this.addResponse(results.data[0].id)
                 })
-                .then(this.addResponse()).then(this.reloadCards())
+                .then(this.reloadCards())
         })
     }
 
-    addResponse() {
+    addResponse(card_id) {
         this.setState({
             temp_response: Object.assign({}, this.state.temp_response,
-                { card_id: this.state.card.id, deck_id: this.state.card.deck_id })
+                { card_id: card_id, deck_id: this.state.card.deck_id })
         }, () => {
             console.log('addResponse', this.state.temp_response)
-            // axios.post(`/cards/deck/response`, this.state.temp_response)
-            //     .then(results => {
-            //         this.setState({ 'response': results.data });
-            //     })
+            axios.post(`/cards/deck/response`, this.state.temp_response)
+                .then(results => {
+                    this.setState({ 'response': results.data });
+                })
         })
     }
 

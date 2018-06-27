@@ -1,7 +1,7 @@
 
 
 .card-main {
-    background-color: #FEF9C7;
+    background-color: white;
     padding: 5px 5px;
     display: grid;
     grid-gap: 2px;
@@ -11,7 +11,7 @@
     "count count count"
     "title title title"
     "desc desc desc"
-    "play edit delete";
+    "play edit edit";
 
     margin: 10px 10px;
     border: 2px solid rgb(234, 229, 179);
@@ -47,11 +47,11 @@
 
 
 .card-btn {
-    outline: 1px solid lightseagreen;
+    /* outline: 1px solid lightseagreen; */
     margin: 5px 10px ;
-    background-color: #FCE181;
+    /* background-color: lightblue; */
     height: 30px;
-    width: 60px;
+    width: 100px;
     text-align: center;
 }
 
@@ -63,6 +63,7 @@ background-color: lightblue;
 .play {
     /* outline: 1px solid lightseagreen;  */
     grid-area: play;
+    
 }
 .edit {
     /* outline: 1px solid lightseagreen;  */

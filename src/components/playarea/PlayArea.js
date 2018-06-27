@@ -4,6 +4,16 @@ import '../reset.css'
 import { connect } from 'react-redux'
 import { getCards } from './../../ducks/user'
 import { Link } from "react-router-dom";
+import axios from 'axios';
+
+const MyStyle = {
+    borderTopLeftRadius: "10px",
+    borderTopRightRadius: "10px",
+    padding: "2px 16px",
+    color: "white",
+    height: "30px"
+
+}
 
 
 class PlayArea extends Component {
@@ -14,7 +24,15 @@ class PlayArea extends Component {
             cards: [],
             active: false,
             correct: false,
-            showModal: false
+            showModal: false,
+            removeModal: false,
+            answerState: false,
+            answerText: '',
+            answerFlash: false,
+            respStart: 0,
+            respStop: 0,
+            respTime: 0,
+            ledTime: true
 
         };
         this.toggleClass = this.toggleClass.bind(this)
@@ -22,6 +40,9 @@ class PlayArea extends Component {
         this.displayCard = this.displayCard.bind(this)
         this.AnswerClickHandler = this.AnswerClickHandler.bind(this)
         this.AnswerModal = this.AnswerModal.bind(this)
+        this.chooseStyle = this.chooseStyle.bind(this)
+        this.updateResponse = this.updateResponse.bind(this)
+
     }
 
     componentDidMount() {
@@ -37,9 +58,9 @@ class PlayArea extends Component {
 
 
     toggleClass() {
-        // const currentState = this.state.active;
-        // this.setState({ active: !currentState });
-        this.setState({ active: true });
+        const currentState = this.state.active;
+        this.setState({ active: !currentState });
+        // this.setState({ active: true });
         if (!this.state.active) {
             this.displayCard()
         }
@@ -59,6 +80,7 @@ class PlayArea extends Component {
             ans2w: false,
             ans3w: false,
             ans4w: false,
+            // answerState: false
         })
 
     }
@@ -73,14 +95,15 @@ class PlayArea extends Component {
     AnswerModal() {
         const currentState = this.state.showModal;
         this.setState({
-            showModal: !currentState
+            showModal: true
         })
     }
 
     AnswerClickHandler(answer) {
         const card = this.state.card
-
         if (card.correct_answer === card[answer]) {
+
+            this.respTimer('stop')
 
             switch (answer) {
                 case 'answer_1':
@@ -100,6 +123,34 @@ class PlayArea extends Component {
                     break;
             }
 
+            this.setState({
+                answerState: true,
+                answerText: 'Correct !'
+            })
+            this.AnswerModal()
+            setTimeout(() => {
+
+                // Remove Modal
+                this.setState({
+                    removeModal: true,
+                    showModal: false
+                })
+
+                // Write data to Response Table
+
+
+                // flip card
+                this.toggleClass()
+
+                // Display a new question
+                this.displayCard()
+
+            }, 2000)
+
+
+
+
+
         } else if (card.correct_answer !== card[answer]) {
             switch (answer) {
                 case 'answer_1':
@@ -117,12 +168,90 @@ class PlayArea extends Component {
                 default:
                     break;
             }
-
+            this.setState({
+                answerState: false,
+                answerText: 'Wrong',
+                // answerFlash: true
+            })
+            this.AnswerModal()
+            setTimeout(() => {
+                this.setState({
+                    removeModal: true,
+                    showModal: false,
+                })
+                // flip card
+                // this.displayCard()
+            }, 2000)
 
         }
         // Next?
 
     }
+
+    // Experimenting with styles in code
+    chooseStyle(answer) {
+        const card = this.state.card
+        if (card.correct_answer === card[answer]) {
+            return {
+                padding: '10px 10px',
+                textAlign: 'left',
+                display: 'block',
+                height: '60px',
+                width: '280px',
+                borderTop: '1px solid lightgray',
+                margin: '10px auto',
+                fontSize: '16px'
+            }
+        }
+    }
+
+    respTimer(status) {
+        const d = new Date();
+        const t = d.getTime();
+
+        if (status === 'start') {
+            // console.log('respStart ', t)
+            // Wait one second before starting the timer
+            setTimeout(() => {
+                this.setState({
+                    ledTime: false,
+                    respStart: t,
+                    // respStop: t
+                })
+            }, 1500)
+
+        } else if (status === 'stop') {
+            // console.log('respStop ', t)
+            this.setState({
+                ledTime: true,
+                respStop: t,
+
+            }, () => {
+                let respTimeTtl = this.state.respStop - this.state.respStart
+                this.setState({
+                    respTime: respTimeTtl
+                })
+                // Write data to Response table
+                this.updateResponse(respTimeTtl)
+            })
+
+
+        }
+    }
+
+    updateResponse(resp) {
+        let card = this.state.card
+        // console.log('updateDeck ', deck);
+        axios.put(`/cards/deck/response/${card.id}`, { res_time: resp })
+            .then(results => {
+                this.setState({ 'deck': results.data });
+            })
+    }
+
+
+
+
+
 
 
     render() {
@@ -136,7 +265,11 @@ class PlayArea extends Component {
                     <div className="scene scene--card">
                         <div
                             className={this.state.active ? 'card is-flipped' : 'card'}
-                            onClick={this.toggleClass}
+                            onClick={() => {
+                                this.respTimer('start')
+                                this.toggleClass()
+
+                            }}
                         >
                             <div className="card__face card__face--front">Are you ready?</div>
                             <div className="card__face card__face--back">
@@ -144,25 +277,37 @@ class PlayArea extends Component {
                                     {this.state.card.question}
                                 </div>
                                 <div
-                                    className={this.state.ans1 ? 'box green green:hover' :
-                                        this.state.ans1w ? 'box red red:hover' : 'box'}
+                                    className={
+                                        this.state.ans1 ? 'box green green:hover' :
+                                            this.state.ans1w ? 'box red red:hover' : 'box'
+                                        // this.state.answerFlash ? 'box flash' : 'box'
+                                    }
                                     onClick={() => this.AnswerClickHandler('answer_1')}
                                 >{this.state.card.answer_1}</div>
                                 <div
-                                    className={this.state.ans2 ? 'box green green:hover' :
-                                        this.state.ans2w ? 'box red red:hover' : 'box'}
+                                    className={
+                                        this.state.ans2 ? 'box green green:hover' :
+                                            this.state.ans2w ? 'box red red:hover' : 'box'
+                                        // this.state.answerFlash ? 'box flash' : 'box'
+                                    }
 
                                     onClick={() => this.AnswerClickHandler('answer_2')}
                                 >{this.state.card.answer_2}</div>
                                 <div
-                                    className={this.state.ans3 ? 'box green green:hover' :
-                                        this.state.ans3w ? 'box red red:hover' : 'box'}
+                                    className={
+                                        this.state.ans3 ? 'box green green:hover' :
+                                            this.state.ans3w ? 'box red red:hover' : 'box'
+                                        // this.state.answerFlash ? 'box flash' : 'box'
+                                    }
 
                                     onClick={() => this.AnswerClickHandler('answer_3')}
                                 >{this.state.card.answer_3}</div>
                                 <div
-                                    className={this.state.ans4 ? 'box green green:hover' :
-                                        this.state.ans4w ? 'box red red:hover' : 'box'}
+                                    className={
+                                        this.state.ans4 ? 'box green green:hover' :
+                                            this.state.ans4w ? 'box red red:hover' : 'box'
+                                        // this.state.answerFlash ? 'box flash' : 'box'
+                                    }
 
                                     onClick={() => this.AnswerClickHandler('answer_4')}
                                 >{this.state.card.answer_4}</div>
@@ -171,28 +316,27 @@ class PlayArea extends Component {
                     </div>
                     {/* End? */}
 
-                    {/* Trigger/Open The Modal */}
-                    <button id="myBtn"
-                        onClick={() => this.AnswerModal()}
-                    >Open Modal</button>
+
 
                     {/* The Modal */}
-                    <div id="myModal" className={this.state.showModal ? "modal" : "modal-none"}>
+                    <div id="myModal" className={
+                        this.state.showModal ? "modal" :
+                            this.state.removeModal ? "modal-out" : "modal-none"}>
                         {/* Modal content */}
                         <div className="modal-content">
-                            <div className="modal-header">
+                            <div className={this.state.answerState ? `modal-header green` : "modal-header red"}>
                                 <span
                                     className={this.state.showModal ? "close" : "close-none"}
                                     onClick={() => this.AnswerModal()}
                                 >&times;</span>
-                                <h2>Modal Header</h2>
+                                <h2> </h2>
                             </div>
                             <div className="modal-body">
-                                <p>Some text in the Modal Body</p>
-                                <p>Some other text...</p>
+                                <p>{this.state.answerText}</p>
+                                <p> </p>
                             </div>
-                            <div className="modal-footer">
-                                <h3>Modal Footer</h3>
+                            <div className={this.state.answerState ? "modal-footer green" : "modal-footer red"} >
+                                <h3> </h3>
                             </div>
                         </div>
 
@@ -201,8 +345,11 @@ class PlayArea extends Component {
                 </div>
                 <div className='rightcard'>
                     <Link to={`/dashboard/deckarea`}>
-                        <button>Return to Dashboard</button>
+                        <button className='rtn-btn'>Return to Dashboard</button>
                     </Link>
+                    {/* <div className={this.state.ledTime ? "led green" : "led red"}>
+                        {this.state.respTime}
+                    </div> */}
                 </div>
 
 

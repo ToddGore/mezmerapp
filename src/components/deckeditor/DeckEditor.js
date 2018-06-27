@@ -54,7 +54,7 @@ class DeckEditor extends Component {
             this.props.getDecks(+this.props.user.id)
         }).then(() => {
             this.setState({
-                temp_deck: { ...this.state.temp_deck, user_id: +this.props.user.id, }
+                temp_deck: { ...this.state.temp_deck, user_id: +this.props.user.id }
             })
         })
     }
@@ -89,22 +89,15 @@ class DeckEditor extends Component {
             })
     }
     updateDeck(deck) {
-        const deckId = deck.id
-        const newObjD = Object.assign({}, this.state.temp_deck,
-            {
-                user_id: deck.user_id
-            })
-        console.log('updateDeck ', newObjD);
-        axios.put(`/cards/deck/${deckId}`, newObjD)
+        console.log('deck ', deck)
+        axios.put(`/cards/deck/${deck.id}`, this.state.temp_deck)
             .then(results => {
                 this.reloadDecks()
                 this.setState({
-                    deck: results.data,
+                    deck: results.data[0],
                     updDeck_Enabled: false,
                     createDeck_Enabled: false
                 });
-
-
             })
     }
 

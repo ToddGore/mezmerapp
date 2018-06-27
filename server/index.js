@@ -147,7 +147,14 @@ app.put('/cards/card/:id', (req, res) => {
 })
 
 // Update a Response
-
+app.put('/cards/deck/response/:id', (req, res) => {
+    console.log('reqParams ', req.params.id)
+    console.log('reqBody ', req.body)
+    const db = req.app.get('db');
+    db.updateResponse([req.params.id, req.body.res_time])
+        .then(response => res.status(200).send(response))
+        .catch(() => res.status(500).send());
+})
 
 // Delete a Deck
 app.delete('/cards/deck/delete/:id', (req, res) => {
@@ -186,3 +193,4 @@ app.delete('/cards/deck/response/:id', (req, res) => {
 app.listen(SERVER_PORT, () => {
     console.log(`Listening on port: `, SERVER_PORT)
 })
+
