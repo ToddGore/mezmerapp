@@ -14,7 +14,7 @@ export default function Nav(props) {
 
             </div>
             <div className="logout-container">
-                <a href="http://localhost:3047/auth/logout">
+                <a href={process.env.REACT_APP_LOGOUT}>
                     <button type="" className="logout-button">Log Out</button></a>
             </div>
 

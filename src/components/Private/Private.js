@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getUser, getDecks } from './../../ducks/user'
 
-
+let a = ` ${}`
 class Private extends Component {
     componentDidMount() {
         this.props.getUser();
@@ -28,7 +28,7 @@ class Private extends Component {
                 ) : (
                         <p>Please login</p>
                     )}
-                <a href="http://localhost:3047/auth/logout">
+                <a href={process.env.REACT_APP_LOGOUT}>
                     <button type="" className="">
                         logout
           </button>

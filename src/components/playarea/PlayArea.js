@@ -269,7 +269,7 @@ class PlayArea extends Component {
                             className={this.state.active ? 'card is-flipped' : 'card'}
                             onClick={() => {
                                 this.respTimer('start')
-                                // this.toggleClass()
+                                this.toggleClass()
 
                             }}
                         >
