@@ -6,19 +6,12 @@ import { getCards } from './../../ducks/user'
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-const MyStyle = {
-    borderTopLeftRadius: "10px",
-    borderTopRightRadius: "10px",
-    padding: "2px 16px",
-    color: "white",
-    height: "30px"
-
-}
 
 
 class PlayArea extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             card: {},
             cards: [],
@@ -60,7 +53,6 @@ class PlayArea extends Component {
     toggleClass() {
         const currentState = this.state.active;
         this.setState({ active: !currentState });
-        // this.setState({ active: true });
         if (!this.state.active) {
             this.displayCard()
         }
@@ -99,8 +91,10 @@ class PlayArea extends Component {
         })
     }
 
+    // Evaluate answer
     AnswerClickHandler(answer) {
         const card = this.state.card
+        // If answer is correct
         if (card.correct_answer === card[answer]) {
 
             this.respTimer('stop')
@@ -136,10 +130,11 @@ class PlayArea extends Component {
                     showModal: false
                 })
 
-                // Write data to Response Table
+                // Write data to Response Table ? 
+                // Currently being done in Response Timer
 
 
-                // flip card
+                // flip card back
                 this.toggleClass()
 
                 // Display a new question
@@ -150,7 +145,7 @@ class PlayArea extends Component {
 
 
 
-
+            // Answer is wrong
         } else if (card.correct_answer !== card[answer]) {
             switch (answer) {
                 case 'answer_1':
@@ -179,9 +174,16 @@ class PlayArea extends Component {
                     removeModal: true,
                     showModal: false,
                 })
-                // flip card
-                // this.displayCard()
-            }, 2000)
+
+                // Flash correct answer
+
+
+                // flip card back
+                this.toggleClass()
+
+                // Displays a new card
+                this.displayCard()
+            }, 5000)
 
         }
         // Next?
@@ -267,7 +269,7 @@ class PlayArea extends Component {
                             className={this.state.active ? 'card is-flipped' : 'card'}
                             onClick={() => {
                                 this.respTimer('start')
-                                this.toggleClass()
+                                // this.toggleClass()
 
                             }}
                         >
