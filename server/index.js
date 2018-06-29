@@ -62,10 +62,14 @@ passport.use(
 );
 
 passport.serializeUser((primaryKeyID, done) => {
+    console.log(primaryKeyID)
     done(null, primaryKeyID);
 })
 passport.deserializeUser((primaryKeyID, done) => {
+    console.log(primaryKeyID)
+
     app.get("db").find_session_user([primaryKeyID]).then(user => {
+        console.log("deserialize", user)
         done(null, user[0])
     })
 })
