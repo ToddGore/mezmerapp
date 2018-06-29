@@ -16,7 +16,7 @@ const {
     CALLBACK_URL,
     CONNECTION_STRING
 } = process.env;
-console.log('CONNECTION_STRING ', CONNECTION_STRING)
+
 const app = express();
 
 app.use(express.static(`${__dirname}/../build`));
@@ -24,7 +24,7 @@ app.use(express.static(`${__dirname}/../build`));
 app.use(bodyParser.json());
 
 massive(CONNECTION_STRING).then(db => {
-    console.log('db ', db)
+
     app.set('db', db)
 })
 
@@ -48,7 +48,6 @@ passport.use(
             const db = app.get("db");
             let { id, displayName, picture } = profile;
             db.find_user([id]).then(user => {
-                console.log('user ', user)
                 if (user[0]) {
                     done(null, user[0].id);
                 } else {
@@ -62,14 +61,11 @@ passport.use(
 );
 
 passport.serializeUser((primaryKeyID, done) => {
-    console.log(primaryKeyID)
     done(null, primaryKeyID);
 })
 passport.deserializeUser((primaryKeyID, done) => {
-    console.log(primaryKeyID)
 
     app.get("db").find_session_user([primaryKeyID]).then(user => {
-        console.log("deserialize", user)
         done(null, user[0])
     })
 })
@@ -159,8 +155,6 @@ app.put('/cards/card/:id', (req, res) => {
 
 // Update a Response
 app.put('/cards/deck/response/:id', (req, res) => {
-    console.log('reqParams ', req.params.id)
-    console.log('reqBody ', req.body)
     const db = req.app.get('db');
     db.updateResponse([req.params.id, req.body.res_time])
         .then(response => res.status(200).send(response))
@@ -169,7 +163,6 @@ app.put('/cards/deck/response/:id', (req, res) => {
 
 // Delete a Deck
 app.delete('/cards/deck/delete/:id', (req, res) => {
-    console.log('server_del_deck ', req.params.id)
     const db = req.app.get('db');
     const { params } = req;
     db.delDeck([req.params.id])
@@ -179,7 +172,6 @@ app.delete('/cards/deck/delete/:id', (req, res) => {
 
 // Delete a Card
 app.delete('/cards/card/delete/:id', (req, res) => {
-    console.log('server_del_card ', req.params.id)
     const db = req.app.get('db');
     const { params } = req;
     db.delCard([req.params.id])
@@ -192,7 +184,6 @@ app.delete('/cards/card/delete/:id', (req, res) => {
 
 // Delete a Response
 app.delete('/cards/deck/response/:id', (req, res) => {
-    console.log('server_del_response ', req.params.id)
     const db = req.app.get('db');
     const { params } = req;
     db.delResp([req.params.id])

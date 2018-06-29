@@ -4,6 +4,30 @@ import axios from 'axios';
 import './cardeditor.css';
 import { connect } from 'react-redux'
 import { getUser, getDecks, getCards } from './../../ducks/user'
+var unirest = require('unirest');
+
+// // Imports the Google Cloud client library.
+// const Storage = require('@google-cloud/storage');
+
+// // Instantiates a client. If you don't specify credentials when constructing
+// // the client, the client library will look for credentials in the
+// // environment.
+// const storage = new Storage();
+
+// // Makes an authenticated API request.
+// storage
+//     .getBuckets()
+//     .then((results) => {
+//         const buckets = results[0];
+
+//         console.log('Buckets:');
+//         buckets.forEach((bucket) => {
+//             console.log(bucket.name);
+//         });
+//     })
+//     .catch((err) => {
+//         console.error('ERROR:', err);
+//     });
 
 
 
@@ -20,6 +44,7 @@ class CardEditor extends Component {
             delCard_Enabled: false,
             updCard_Enabled: false,
             rtnDash_Enabled: true,
+            suggestion: '',
 
             card: {
                 deck_id: 0, question: "", answer_1: "", answer_2: "",
@@ -44,6 +69,7 @@ class CardEditor extends Component {
         this.toggleLi = this.toggleLi.bind(this)
         this.myColor = this.myColor.bind(this)
         this.delCard = this.delCard.bind(this)
+        this.spellClick = this.spellClick.bind(this)
     }
 
     componentDidMount() {
@@ -136,6 +162,22 @@ class CardEditor extends Component {
                 })
         })
     }
+
+    spellClick(content) {
+        let self = this //************ add this
+        // These code snippets use an open-source library. http://unirest.io/nodejs
+        // This+sentnce+has+some+probblems.
+        let title = this.state.temp_card.question;
+        title = title.replace(/\s/g, "+");
+        unirest.get(`https://montanaflynn-spellcheck.p.mashape.com/check/?text=${title}`)
+            .header("X-Mashape-Key", "zEBW2t6EOLmshzEH90V3yeQQP65Np1EeEO6jsnpHdu75AqXZoC")
+            .header("Accept", "application/json")
+            .end(function (result) {
+                self.setState({ 'suggestion': result.body.suggestion });
+            });
+    }
+
+
 
     handleChangeQuestion(e) {
         this.setState({
@@ -256,6 +298,12 @@ class CardEditor extends Component {
                                 value={this.state.temp_card.question}
                                 onChange={(e) => { this.handleChangeQuestion(e) }}>
                                 ></textarea>
+                            <textarea className="cardview-quest-spell"
+                                value={this.state.suggestion}
+                                placeholder="Spell Check Suggestions"
+                                readOnly
+                            ></textarea>
+
                         </div>
 
                         <p>Answers</p>
@@ -333,6 +381,13 @@ class CardEditor extends Component {
                             onClick={() => { this.updateCard(this.state.card) }}
                         >Update Card</button>
                         <br />
+                        <button
+                            className='cardopt-button'
+                            // disabled={!this.state.updCard_Enabled}
+                            onClick={this.spellClick}
+                        >Spell Check</button>
+                        <br />
+
                         <Link to={`/dashboard/deckarea`}>
                             <button
                                 className='cardopt-button'

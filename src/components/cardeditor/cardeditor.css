@@ -13,8 +13,9 @@
 }
 
 .list {
+    width: 550px;
     grid-area: list;
-    border: 5px dashed palevioletred;
+    /* border: 5px dashed palevioletred; */
 }
 
 .editor {
@@ -23,7 +24,7 @@
 }
 .options {
     grid-area: options;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .cardview-main {
     font-size: 26px;
@@ -78,10 +79,7 @@
     margin: 10px 10px;
 }
 
-.list {
-    width: 550px;
-    border: 1px solid red;
-}
+
 
 
 
@@ -99,7 +97,7 @@
     
 }
 .list-cards ul {
-    border: 1px solid lightskyblue;
+    border: 1px solid blue;
 }
 
 
@@ -126,5 +124,9 @@ textarea {
     resize: none;
   }
 #question {
-    height: 150px;
+    height: 80px;
+}
+
+.cardview-quest-spell {
+    
 }
