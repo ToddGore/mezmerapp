@@ -16,14 +16,17 @@ const {
     CALLBACK_URL,
     CONNECTION_STRING
 } = process.env;
-
+console.log('CONNECTION_STRING ', CONNECTION_STRING)
 const app = express();
 
 app.use(express.static(`${__dirname}/../build`));
 
 app.use(bodyParser.json());
 
-massive(CONNECTION_STRING).then(db => { app.set('db', db) })
+massive(CONNECTION_STRING).then(db => {
+    console.log('db ', db)
+    app.set('db', db)
+})
 
 app.use(session({
     secret: SESSION_SECRET,
@@ -45,6 +48,7 @@ passport.use(
             const db = app.get("db");
             let { id, displayName, picture } = profile;
             db.find_user([id]).then(user => {
+                console.log('user ', user)
                 if (user[0]) {
                     done(null, user[0].id);
                 } else {
