@@ -4,12 +4,22 @@ import { connect } from 'react-redux'
 import { getUser, getDecks, getCards } from './../../ducks/user'
 import { Link } from "react-router-dom";
 import axios from 'axios';
-// Pull in list of decks
+
+import felt from '../images/bg1.png'
+import card_back from '../images/cardback.png'
 
 
-// Editor will let you change "Title" and "Description"
+var sectionStyle = {
+    backgroundImage: `url(${felt})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "1475px 860px"
+};
 
-// Buttons: Return to dashboard, Edit or add cards,
+
+
+
+
+
 
 class DeckEditor extends Component {
     constructor(props) {
@@ -191,8 +201,12 @@ class DeckEditor extends Component {
     render() {
         // console.log('in state ', this.state.deck)
         return (
-            <div className='deckeditor-container'>
+            <div style={sectionStyle}
+            className='deckeditor-container'>
                 <div className='deckeditor-list'>
+
+
+                
                     <ul>
                         <li>DECKS</li>
                         <hr />

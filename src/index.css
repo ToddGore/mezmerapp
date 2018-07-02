@@ -1,3 +1,9 @@
+
+@font-face {
+  font-family: 'WickedMouseDemo';
+  src: local('WickedMouseDemo'), url(./fonts/WickedMouseDemo.otf) format('woff');
+}
+
 body {
   margin: 0;
   padding: 0;

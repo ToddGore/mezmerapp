@@ -2,9 +2,9 @@
 .playarea-container {
     display: grid;
     /* background-color: lawngreen; */
-    /* border: 1px solid green; */
-    width: 1470px;
-    height: 605px;
+    /* border: 1px solid red; */
+    /* width: 1470px; */
+    height: 816px;
     /* text-align: center; */
         
     grid-gap: 5px;
@@ -36,9 +36,7 @@
   height: 50px;
   width: 200px;
   border-radius: 35px;
-  -webkit-box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
-    -moz-box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
-    box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
+    box-shadow: 25px 31px 71px 0px rgba(0,0,0,0.8);
     text-align: center;
     font-weight: bold;
     font-size: 14px;
@@ -51,9 +49,7 @@
   background-color: rgb(241, 241, 241);
   /* box-shadow: 0 5px #666; */
   transform: translateY(4px);
-  -webkit-box-shadow: 13px 14px 71px 0px rgba(153,153,153,1);
-  -moz-box-shadow: 13px 14px 71px 0px rgba(153,153,153,1);
-  box-shadow: 13px 14px 71px 0px rgba(153,153,153,1);
+  box-shadow: 15px 21px 36px 0px rgba(0,0,0,1);
 }
 
 
@@ -68,6 +64,9 @@
 }
 
 .card {
+  font-family: "WickedMouseDemo", Times, serif;
+  font-size: 26px;
+  color: #b74a00;
     /* border: 2px dashed violet; */
     width: 300px;
     height: 460px;
@@ -91,13 +90,11 @@
     /* color: white; */
     text-align: center;
     font-weight: bold;
-    font-size: 40px;
+    /* font-size: 40px; */
     backface-visibility: hidden;
     border-radius: 25px;
 
-    -webkit-box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
-    -moz-box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
-    box-shadow: 25px 31px 71px 0px rgba(153,153,153,1);
+    box-shadow: 25px 31px 71px 0px rgba(0,0,0,0.8);
 
     /* animation: slideIn 2s forwards; */
 

@@ -9,19 +9,18 @@
     background-color: rgba(0, 0, 0, 0.822)
 }
 
-.nav-contain {
-    
-    display: flex;
-    justify-content: center;
-    border: 1px solid red;
-    height: 50px;
-    width: 300px;
-    align-items: center;
-}
 .nav-items {
-    /* align-self: flex-end; */
+    font-size: 24px;
     padding: 0 10px;
+    text-decoration: none;
 }
+a:link {
+    color: lightseagreen;
+}
+a:visited {
+    color: lightseagreen;
+}
+
 
 .main-body {
     background-color: lightblue;

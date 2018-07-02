@@ -1,24 +1,6 @@
 
 
-.card-main {
-    background-color: white;
-    padding: 5px 5px;
-    display: grid;
-    grid-gap: 2px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 2fr 4fr 2fr;
-    grid-template-areas: 
-    "count count count"
-    "title title title"
-    "desc desc desc"
-    "play edit edit";
 
-    margin: 10px 10px;
-    border: 2px solid rgb(234, 229, 179);
-    box-shadow: 3px 2px 14px -4px rgba(0,0,0,0.75);
-    height: 200px;
-    width: 300px;
-}
 
 .card-count {
     padding: 2px 5px;
@@ -29,16 +11,19 @@
 .card-title {
     font-weight: bold;
     font-size: large;
-    padding: 2px 5px;
-    text-align: left;
+    height: 80px;
+    /* margin-bottom: 10px; */
+    /* padding: 2px 5px; */
+    /* text-align: left; */
     overflow: hidden;
     text-overflow: ellipsis;
     /* outline: 1px solid lightseagreen;  */
     grid-area: title;
 }
 .card-desc {
-    padding: 2px 5px;
+    /* padding: 2px 5px; */
     /* outline: 1px solid lightseagreen;  */
+    margin-top: 10px;
     grid-area: desc;  
     text-align: left;
     overflow: hidden;
@@ -46,14 +31,7 @@
 }
 
 
-.card-btn {
-    /* outline: 1px solid lightseagreen; */
-    margin: 5px 10px ;
-    /* background-color: lightblue; */
-    height: 30px;
-    width: 100px;
-    text-align: center;
-}
+
 
 .card-btn:hover {
 background-color: lightblue;

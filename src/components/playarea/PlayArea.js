@@ -5,7 +5,23 @@ import { connect } from 'react-redux'
 import { getCards } from './../../ducks/user'
 import { Link } from "react-router-dom";
 import axios from 'axios';
+// import felt from '../images/felt.jpg'
+// import card_back from '../images/cardback.png'
+import background from '../images/BackgroundDesign.jpg'
+import card_back from '../images/Popup_1.png'
 
+var sectionStyle = {
+    backgroundImage: `url(${background})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "1475px 816px"
+};
+
+var cardStyle = {
+    backgroundImage: `url(${card_back})`,
+    backgroundRepeat: "no-repeat",
+    // background: `url(${card_back})`,
+    backgroundSize: "300px 460px",
+};
 
 
 class PlayArea extends Component {
@@ -304,7 +320,7 @@ class PlayArea extends Component {
     render() {
 
         return (
-            <div className='playarea-container'>
+            <div style={sectionStyle} className='playarea-container'>
                 <div className='leftcard'></div>
 
                 <div className='playcard'>
@@ -320,7 +336,9 @@ class PlayArea extends Component {
 
                             }}
                         >
-                            <div className="card__face card__face--front">Are you ready?</div>
+                            <div style={cardStyle}
+                                className="card__face card__face--front">Are you ready?</div>
+
                             <div className="card__face card__face--back">
                                 <div className='quest-box'>
                                     {this.state.card.question}

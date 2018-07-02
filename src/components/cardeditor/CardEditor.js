@@ -4,30 +4,13 @@ import axios from 'axios';
 import './cardeditor.css';
 import { connect } from 'react-redux'
 import { getUser, getDecks, getCards } from './../../ducks/user'
+import { css } from 'emotion'
+import background from '../images/bg1.png'
+import window6 from '../images/window6.png'
+// import popup2 from '../images/window5.png'
 var unirest = require('unirest');
 
-// // Imports the Google Cloud client library.
-// const Storage = require('@google-cloud/storage');
 
-// // Instantiates a client. If you don't specify credentials when constructing
-// // the client, the client library will look for credentials in the
-// // environment.
-// const storage = new Storage();
-
-// // Makes an authenticated API request.
-// storage
-//     .getBuckets()
-//     .then((results) => {
-//         const buckets = results[0];
-
-//         console.log('Buckets:');
-//         buckets.forEach((bucket) => {
-//             console.log(bucket.name);
-//         });
-//     })
-//     .catch((err) => {
-//         console.error('ERROR:', err);
-//     });
 
 
 
@@ -45,6 +28,7 @@ class CardEditor extends Component {
             updCard_Enabled: false,
             rtnDash_Enabled: true,
             suggestion: '',
+            deckTitle: '',
 
             card: {
                 deck_id: 0, question: "", answer_1: "", answer_2: "",
@@ -70,24 +54,26 @@ class CardEditor extends Component {
         this.myColor = this.myColor.bind(this)
         this.delCard = this.delCard.bind(this)
         this.spellClick = this.spellClick.bind(this)
+        this.getDeckTitle = this.getDeckTitle.bind(this)
     }
 
     componentDidMount() {
         this.props.getUser()
             .then(() => {
-                console.log('compo ', this.props.user.id)
                 this.setState({
                     temp_response: { ...this.state.temp_response, user_id: +this.props.user.id, }
                 })
-                this.props.getDecks(+this.props.user.id).then(console.log('Decks ', this.props))
+                this.props.getDecks(+this.props.user.id)
             })
             .then(this.reloadCards())
 
+        this.getDeckTitle(3)
 
     }
 
     reloadCards() {
         const deck_id = +this.props.match.params.id
+        console.log('reload ', deck_id)
         this.props.getCards(deck_id)
             .then(this.setState({
                 card: { ...this.state.card, deck_id: deck_id, }
@@ -96,7 +82,6 @@ class CardEditor extends Component {
 
     // When is this used?
     updateDeck(deck) {
-        // console.log('updateDeck ', deck);
         axios.put(`/cards/deck/${deck.id}`, deck)
             .then(results => {
                 this.setState({ 'deck': results.data });
@@ -123,7 +108,6 @@ class CardEditor extends Component {
                 deck_id: this.state.card.deck_id
             })
 
-        // console.log('updateCard ', newObj);
         axios.put(`/cards/card/${cardId}`, newObj)
             .then(results => {
                 this.setState({
@@ -139,15 +123,22 @@ class CardEditor extends Component {
             temp_card: Object.assign({}, this.state.temp_card,
                 { deck_id: this.state.card.deck_id })
         }, () => {
-            // console.log('createCard ', this.state.temp_card)
             axios.post(`/cards/deck/card`, this.state.temp_card)
                 .then(results => {
                     this.setState({ card: results.data[0] });
-                    // console.log('createCard_result ', results.data[0].id)
                     this.addResponse(results.data[0].id)
-                })
-                .then(this.reloadCards())
+
+                });
+            this.setState({ state: this.state }); // Force Update
+            this.reloadCards()
         })
+    }
+    getDeckTitle(deck_id) {
+        axios.get(`/decks/user/${deck_id}`)
+            .then(results => {
+                this.setState({ deckTitle: results.data[0] });
+
+            });
     }
 
     addResponse(card_id) {
@@ -155,7 +146,6 @@ class CardEditor extends Component {
             temp_response: Object.assign({}, this.state.temp_response,
                 { card_id: card_id, deck_id: this.state.card.deck_id })
         }, () => {
-            console.log('addResponse', this.state.temp_response)
             axios.post(`/cards/deck/response`, this.state.temp_response)
                 .then(results => {
                     this.setState({ 'response': results.data });
@@ -239,11 +229,6 @@ class CardEditor extends Component {
                 correct_answer: list_card.correct_answer
             }
 
-        }, () => {
-            // console.log("card ", item.id)
-            // console.log("temp_card ", this.state.temp_card)
-            // console.log("card ", this.state.card)
-            // console.log("CardEditor ", this.state.card.id)
         })
     }
 
@@ -266,14 +251,46 @@ class CardEditor extends Component {
 
 
     render() {
-        console.log("CardEditor ", this.props.user.id)
-        return (
-            <div className='cardeditor-container'>
-                <div className='list'>
 
-                    <div className="list-cards">
+        return (
+            <div className={css `
+            background-image: url(${background});
+            background-repeat: no-repeat;
+            background-size: 1475px 860px;
+            // background-color: white;
+            // width: 1450px;
+            // height: 805px;
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: 2fr 2fr 1fr;
+            /* grid-template-rows: 1fr 6fr 1fr; */
+            grid-template-areas: 
+            "list editor options";
+
+            ` }>
+                <div className={css `
+                background-image: url(${window6});
+                background-size: 100%;
+                // width: 450px;
+                grid-area: list;
+                `}
+                
+                // 'list'
+                
+                >
+
+                    <div className={css `
+
+                    height: 400px;
+                    width: 400px;
+                    border: 3px solid greenyellow;
+                    `}
+
+
+                    // "list-cards"
+                    >
                         <ul>
-                            <li>CARDS</li>
+                            <li>Deck Name: {this.state.deckTitle.name}</li>
                             <hr />
                             {this.props.cards.map(((list_card, i) => {
                                 return (

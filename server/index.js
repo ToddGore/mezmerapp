@@ -101,6 +101,16 @@ app.get('/decks/user/:id', (req, res) => {
         .catch(() => res.status(500).send());
 })
 
+// UNION Get Deck name and Card question by deck_id
+app.get('/decks/user/:id', (req, res) => {
+    const db = req.app.get('db');
+    const { params } = req;
+    db.getDeckAndCards([params.id])
+        .then(decks => res.status(200).send(decks))
+        .catch(() => res.status(500).send());
+})
+
+
 // Retrieve Cards by deck_id
 app.get('/cards/deck/:id', (req, res) => {
     const db = req.app.get('db');

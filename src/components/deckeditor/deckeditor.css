@@ -3,7 +3,7 @@
 .deckeditor-container {
     background-color: white;
     width: 1450px;
-    height: 605px;
+    height: 815px;
     display: grid;
     grid-gap: 5px;
     grid-template-columns: 2fr 2fr 1fr;

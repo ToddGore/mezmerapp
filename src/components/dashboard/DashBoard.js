@@ -6,8 +6,8 @@ import './dashboard.css';
 
 
 import DashNav from '../dashnav/DashNav'
-import DashHeader from '../dashheader/DashHeader'
-import DashFooter from '../dashfooter/DashFooter'
+// import DashHeader from '../dashheader/DashHeader'
+// import DashFooter from '../dashfooter/DashFooter'
 
 import DeckArea from '../deckarea/DeckArea'
 import PlayArea from '../playarea/PlayArea'
@@ -32,7 +32,7 @@ class Dashboard extends Component {
             <Router>
                 <div className="grid">
                     <DashNav username={this.props.user.user_name} picture={this.props.user.picture} />
-                    <DashHeader />
+                    {/* <DashHeader /> */}
                     <div className="deck-view">
                         <Switch>
                             <Route exact path="/dashboard/deckarea" component={DeckArea} />
@@ -43,7 +43,7 @@ class Dashboard extends Component {
                         </Switch>
                         {/* <DeckArea /> */}
                     </div>
-                    <DashFooter />
+                    {/* <DashFooter /> */}
                 </div>
             </Router>
         )

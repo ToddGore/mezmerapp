@@ -1,26 +1,17 @@
+
+
+
 .deckarea-main {
+    /* background-color: blue; */
     display: flex;
-   flex-direction: row;
-   justify-content: center;
-   flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* height: 415px; */
     /* width: 1400px; */
-    /* border: 2px dotted purple; */
+    /* border: 5px dashed purple; */
 }
 
-.new-deck {
-    /* display: inline; */
-    /* margin: 0 auto; */
-    padding: 5px 5px;
-    height: 200px;
-    width: 300px;
-    background-color: white;
-    margin: 10px 10px;
-    border: 2px solid rgb(234, 229, 179);
-    box-shadow: 3px 2px 14px -4px rgba(0,0,0,0.75);
-    font-weight: bold;
-    font-size: large;
-
-}
 
 .new-deck-txt {
     margin: 10px auto;
@@ -42,3 +33,22 @@
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+
+
+
+
+
+@keyframes myAnimation{
+0%{
+    opacity: 1;
+}
+100%{
+    display: none;
+    opacity: 0;
+}
+}
+ #myelement{
+animation-name: myAnimation;
+animation-duration: 2000ms;
+animation-fill-mode: forwards;
+}
