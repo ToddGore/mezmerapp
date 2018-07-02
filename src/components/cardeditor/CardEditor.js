@@ -253,7 +253,7 @@ class CardEditor extends Component {
     render() {
 
         return (
-            <div className={css `
+            <div className={css`
             background-image: url(${background});
             background-repeat: no-repeat;
             background-size: 1475px 860px;
@@ -268,21 +268,23 @@ class CardEditor extends Component {
             "list editor options";
 
             ` }>
-                <div className={css `
-                background-image: url(${window6});
+                <div className={css`
+                // background-image: url(${window6});
                 background-size: 100%;
+                height: 815px;
                 // width: 450px;
                 grid-area: list;
                 `}
-                
+
                 // 'list'
-                
+
                 >
 
-                    <div className={css `
+                    <div className={css`
 
                     height: 400px;
                     width: 400px;
+                    background-color: lightgoldenrodyellow;
                     border: 3px solid greenyellow;
                     `}
 

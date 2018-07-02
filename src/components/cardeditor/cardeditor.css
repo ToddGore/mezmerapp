@@ -13,6 +13,7 @@
 .editor {
     grid-area: editor;
     /* border: 2px solid blue; */
+
 }
 .options {
     grid-area: options;
@@ -23,6 +24,7 @@
     border: 1px solid blue;
     height: 600px;
     width: 500px;
+    background-color: aliceblue;
     border-radius: 25px;
 }
 
@@ -62,6 +64,7 @@
 .cardopt-main {
     height: 300px;
     width: 200px;
+    background-color: lightcyan;
     border: 1px solid green;
 }
 
